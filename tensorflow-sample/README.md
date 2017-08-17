@@ -6,3 +6,4 @@
 **[OpenCV简单图片操作](http://blog.csdn.net/jazywoo123/article/details/17231469)**  
 
 **[OpenCV示例代码](http://stackoverflow.com/questions/32943227/python-opencv-capture-images-from-webcam)**
+#END
