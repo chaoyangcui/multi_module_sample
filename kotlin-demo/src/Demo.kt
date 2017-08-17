@@ -4,8 +4,11 @@
  * @Desc
  *
  */
-var msg: String = "Hello, Kotlin."
+val msg: String = "Hello, Kotlin."
 
 fun main(agrs: Array<String>) {
     println(msg)
+
+    val hero = Batman()
+    hero.save()
 }
