@@ -46,6 +46,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
+
         <!--apache commons-->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -53,10 +54,12 @@
             <version>3.3.2</version>
         </dependency>
         <dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.1</version>
         </dependency>
+
         <!--google utils-->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -107,6 +110,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!--cglib-->
         <dependency>
             <groupId>cglib</groupId>
