@@ -8,12 +8,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.text.SimpleDateFormat;
 
 /**
- * @Author Eric
- * @Date 2017/5/9 14:52
- * @Desc
+ * @author Eric
+ * Date 2017/5/9 14:52
+ * Desc
  */
 public abstract class Base {
-    public static final ObjectMapper objectMapper;
+    protected static final ObjectMapper objectMapper;
     static {
         objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);

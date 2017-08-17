@@ -3,9 +3,9 @@ package algorithm;
 import java.util.Stack;
 
 /**
- * @Author Eric
- * @Date 2017/4/28 17:38
- * @Desc
+ * @author Eric
+ * Date 2017/4/28 17:38
+ * Desc
  */
 public class AlgorithmDemo {
 

@@ -10,12 +10,12 @@ import com.google.gson.GsonBuilder;
 import java.text.SimpleDateFormat;
 
 /**
- * @Author Eric
- * @Date 2017/5/4 11:20
- * @Desc
+ * @author Eric
+ * Date 2017/5/4 11:20
+ * Desc
  */
 public abstract class Base {
-    protected static final Gson GSON;
+    static final Gson GSON;
     protected static final ObjectMapper OBJECT_MAPPER;
 
     static {

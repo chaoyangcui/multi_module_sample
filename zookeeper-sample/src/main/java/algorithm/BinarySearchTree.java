@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import demo.Base;
 
 /**
- * @Author Eric
- * @Date 2017/5/4 10:11
- * @Desc
+ * @author Eric
+ * Date 2017/5/4 10:11
+ * Desc
  */
 public class BinarySearchTree extends Base {
 
