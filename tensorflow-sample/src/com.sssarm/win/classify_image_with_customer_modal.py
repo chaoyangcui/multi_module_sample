@@ -67,7 +67,6 @@ def run_inference_on_image():
     create_graph()
 
     with tf.Session() as sess:
-
         softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
         predictions = sess.run(softmax_tensor,
                                {'DecodeJpeg/contents:0': image_data})
