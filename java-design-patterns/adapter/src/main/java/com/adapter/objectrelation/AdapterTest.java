@@ -13,8 +13,14 @@ public class AdapterTest {
 
     public static void main(String[] args) {
         Engineer engineer = new GnomeEngineer();
+        // ①
         EngineerManager manager = new EngineerManager(engineer);
         manager.operateDevice();
+
+        // ②
+        EngineerManager manager2 = new EngineerManager();
+        manager2.setEngineer(engineer);
+        manager2.operateDevice();
     }
 
 }

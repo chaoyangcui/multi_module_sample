@@ -12,7 +12,14 @@ import com.iluwatar.adapter.Engineer;
 class EngineerManager {
     private Engineer engineer;
 
-    EngineerManager(Engineer engineer) {
+    public EngineerManager() {
+    }
+
+    public EngineerManager(Engineer engineer) {
+        this.engineer = engineer;
+    }
+
+    public void setEngineer(Engineer engineer) {
         this.engineer = engineer;
     }
 
