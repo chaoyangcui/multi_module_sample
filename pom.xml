@@ -11,6 +11,7 @@
     <url>http://maven.apache.org</url>
 
     <modules>
+        <module>__java-sample</module>
         <module>zookeeper-sample</module>
         <module>sssarm-website</module>
         <module>java-design-patterns</module>
