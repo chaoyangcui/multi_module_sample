@@ -15,4 +15,8 @@ public abstract class Abstraction {
     }
 
     public abstract void operation();
+
+    public void println() {              // 类的功能
+        System.out.println("println()"); // 类功能的实现
+    }
 }
