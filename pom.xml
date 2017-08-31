@@ -3,14 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sssarm</groupId>
-    <artifactId>multi-module</artifactId>
+    <artifactId>multi-module-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>multi-module</name>
+    <name>multi-module-sample</name>
     <url>http://maven.apache.org</url>
 
     <modules>
+        <module>__java-sample</module>
         <module>zookeeper-sample</module>
         <module>sssarm-website</module>
         <module>java-design-patterns</module>
