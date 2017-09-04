@@ -22,7 +22,9 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <kotlin.version>1.1.4</kotlin.version>
+        <kotlin.version>1.1.4-3</kotlin.version>
+        <!--same as the kotlin plugin version-->
+        <!--<kotlin.version>1.1.4-release-IJ2017.2-3</kotlin.version>-->
     </properties>
 
     <dependencyManagement>

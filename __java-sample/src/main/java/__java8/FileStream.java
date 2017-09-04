@@ -47,17 +47,22 @@ public class FileStream {
 
         } catch (Exception ignore) {
         } finally {
-            Closeable.class.isAssignableFrom(is.getClass());
             close(is, bufferedReader);
         }
     }
 
     private static void close(Closeable... closeables) {
+        if (closeables == null || closeables.length == 0) {
+            return;
+        }
         for (Closeable closeable : closeables) {
             close(closeable);
         }
     }
     private static void close(Closeable closeable) {
+        if (closeable == null) {
+            return;
+        }
         try {
             closeable.close();
         } catch (IOException e) {
