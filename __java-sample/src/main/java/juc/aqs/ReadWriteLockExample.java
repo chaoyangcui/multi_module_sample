@@ -12,20 +12,20 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Desc    Setting | Editor | File and Code Templates
  */
 public class ReadWriteLockExample {
-    static ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-    static ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
-    static ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
-    static ReentrantLock reentrantLock = new ReentrantLock();
+    private static final ReentrantReadWriteLock LOCK = new ReentrantReadWriteLock();
+    private static final ReentrantReadWriteLock.WriteLock WRITE_LOCK = LOCK.writeLock();
+    private static final ReentrantReadWriteLock.ReadLock READ_LOCK = LOCK.readLock();
+    private static final ReentrantLock REENTRANT_LOCK = new ReentrantLock();
 
     public static void main(String[] args) {
-        writeLock.lock();
-        Condition condition = writeLock.newCondition();
+        WRITE_LOCK.lock();
+        Condition condition = WRITE_LOCK.newCondition();
 
         new Thread(() -> {
-            writeLock.lock();
-            System.out.println(Thread.currentThread().getName() + " get lock.");
+            WRITE_LOCK.lock();
+            System.out.println(Thread.currentThread().getName() + " get LOCK.");
             condition.signal();
-            // writeLock.unlock();
+            // WRITE_LOCK.unlock();
         }, "sub thread").start();
 
         try {
@@ -69,19 +69,19 @@ class CachedData {
         READ_LOCK.unlock();
     }
 
-    void processCachedData() {
+    private static void processCachedData() {
         rwl.readLock().lock();
         if (!cacheValid) {
-            // Must release read lock before acquiring write lock
+            // Must release read LOCK before acquiring write LOCK
             rwl.readLock().unlock();
             rwl.writeLock().lock();
             // Recheck state because another thread might have acquired
-            //   write lock and changed state before we did.
+            //   write LOCK and changed state before we did.
             if (!cacheValid) {
                 data = "...";
                 cacheValid = true;
             }
-            // Downgrade by acquiring read lock before releasing write lock
+            // Downgrade by acquiring read LOCK before releasing write LOCK
             rwl.readLock().lock();
             rwl.writeLock().unlock(); // Unlock write, still hold read
         }
