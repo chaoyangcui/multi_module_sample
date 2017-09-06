@@ -29,7 +29,7 @@ public class _Semaphore {
  *
  * @author 骆昊
  */
-class AppContext {
+final class AppContext {
     public static final int NUM_OF_FORKS = 5;   // 叉子数量(资源)
     public static final int NUM_OF_PHILO = 5;   // 哲学家数量(线程)
 
