@@ -62,6 +62,7 @@ class CachedData {
                 data = p;
                 cacheValid = true;
             }
+            // Downgrade by acquiring read LOCK before releasing write LOCK
             READ_LOCK.lock();
             WRITE_LOCK.unlock();
         }
