@@ -1,4 +1,4 @@
-package jms.amq;
+package jms.amq.p2p;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
