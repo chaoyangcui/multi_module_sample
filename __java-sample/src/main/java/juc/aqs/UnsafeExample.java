@@ -14,7 +14,11 @@ public class UnsafeExample extends AbstractUnsafe {
 
         System.out.println(UNSAFE.getInt(unsafeExample, NUM_OFFSET));
 
-        UNSAFE.compareAndSwapInt(unsafeExample, NUM_OFFSET, 0, 10);
+        if (UNSAFE.compareAndSwapInt(unsafeExample, NUM_OFFSET, 10, 20)) {
+            System.out.println(UNSAFE.getInt(unsafeExample, NUM_OFFSET));
+        } else {
+            UNSAFE.compareAndSwapInt(unsafeExample, NUM_OFFSET, UNSAFE.getInt(unsafeExample, NUM_OFFSET), 10);
+        }
 
         System.out.println(UNSAFE.getInt(unsafeExample, NUM_OFFSET));
     }
