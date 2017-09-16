@@ -1,5 +1,3 @@
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * Created by IntelliJ IDEA.
  *
@@ -14,8 +12,23 @@ public class GlobalConf {
     }
 
     public static void main(String[] args) {
-        ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
-        map.put("key", "value");
+        // ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+        // map.put("key", "value");
+
+        VolatileTest volatileTest = new VolatileTest();
+        for (int i = 0; i < 50; i++) {
+            int anInt = i;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                volatileTest.setAnInt(anInt);
+                volatileTest.print(Thread.currentThread().getName());
+            }, "Thread-" + anInt).start();
+        }
 
         // System.out.println(Integer.numberOfLeadingZeros(0));
         // System.out.println(Integer.numberOfLeadingZeros(1));
@@ -45,6 +58,17 @@ public class GlobalConf {
     //     n |= n >>> 8;
     //     n |= n >>> 16;
     //     return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
-    // }
+    // }Ø
+}
 
+class VolatileTest {
+    private volatile int anInt;
+
+    public void setAnInt(int anInt) {
+        this.anInt = anInt;
+    }
+
+    public void print(String threadName) {
+        System.out.println(threadName + ".anInt:" + anInt);
+    }
 }
