@@ -5,7 +5,7 @@
  * Date    2017/8/30 16:18
  * Desc    Global configuration
  */
-public class GlobalConf {
+public class CommonExample {
 
     static {
         System.out.println("static block.");
@@ -28,6 +28,15 @@ public class GlobalConf {
                 volatileTest.setAnInt(anInt);
                 volatileTest.print(Thread.currentThread().getName());
             }, "Thread-" + anInt).start();
+        }
+
+        System.out.println(1 & 2);
+
+        for (int i = 0, bound = 0;;) {
+            System.out.println((--i >= bound));
+            i = 0;
+            System.out.println((i-- >= bound));
+            break;
         }
 
         // System.out.println(Integer.numberOfLeadingZeros(0));
