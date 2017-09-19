@@ -23,7 +23,11 @@ public class CommonExample {
             System.out.println((--i >= bound));
             i = 0;
             System.out.println((i-- >= bound));
-            break;
+            System.out.println((i >= bound));
+
+            if (i < 1) {
+                break;
+            }
         }
 
         // System.out.println(Integer.numberOfLeadingZeros(0));
