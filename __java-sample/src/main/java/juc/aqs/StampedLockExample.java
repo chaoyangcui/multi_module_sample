@@ -13,6 +13,9 @@ public class StampedLockExample {
     private double x, y;
     private final StampedLock sl = new StampedLock();
 
+    public static void main(String[] args) {
+    }
+
     void move(double deltaX, double deltaY) { // an exclusively locked method
         long stamp = sl.writeLock();
         try {
