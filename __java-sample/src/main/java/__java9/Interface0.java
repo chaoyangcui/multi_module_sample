@@ -9,15 +9,16 @@ package __java9;
  */
 public interface Interface0 {
 
-    static void interfaceInnerMethod() {
+    private static void interfaceInnerMethod() {
         System.out.println("private method in interface0.");
     }
-    void interfaceInnerMethod1() {
+    private void interfaceInnerMethod1() {
         System.out.println("private method in interface0.");
     }
 
     default void t() {
         interfaceInnerMethod();
+        interfaceInnerMethod1();
     }
 
     default void t1() {

@@ -1,7 +1,6 @@
 ﻿package xulingbo.zookeeper;
 
 import org.apache.zookeeper.server.ZooKeeperServerMain;
-import org.apache.zookeeper.test.ClientBase;
 
 import java.io.File;
 import java.io.FileWriter;

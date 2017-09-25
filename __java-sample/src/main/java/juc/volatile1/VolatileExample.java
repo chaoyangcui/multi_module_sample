@@ -1,4 +1,4 @@
-package juc;
+package juc.volatile1;
 
 /**
  * Created by IntelliJ IDEA.
