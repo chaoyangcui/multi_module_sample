@@ -64,6 +64,13 @@
             <artifactId>xmlbeans</artifactId>
             <version>2.6.0</version>
         </dependency>
+
+        <!--bluetooth-->
+        <dependency>
+            <groupId>net.sf.bluecove</groupId>
+            <artifactId>bluecove</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
