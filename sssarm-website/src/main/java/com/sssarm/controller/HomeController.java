@@ -32,7 +32,11 @@ public class HomeController {
     @RequestMapping(value = "/json", method = RequestMethod.GET)
     @ResponseBody
     public String json() {
-        Company company = Company.builder().ifPublic(true).address("address").aDouble(111.111D).build();
+        Company company = Company.builder()
+                .ifPublic(true)
+                .address("address")
+                .aDouble(111.111D)
+                .build();
         System.out.println(company.toString());
         String result = "";
         try {
