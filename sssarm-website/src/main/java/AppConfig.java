@@ -11,9 +11,8 @@ import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 /**
- * @Author Eric
- * @Date 2017/5/9 18:05
- * @Desc
+ * @author Eric
+ * @since  2017/5/9 18:05
  */
 @EnableAutoConfiguration
 @ComponentScan({"com.sssarm"})

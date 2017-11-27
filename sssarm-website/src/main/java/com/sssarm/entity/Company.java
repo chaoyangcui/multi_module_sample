@@ -9,10 +9,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * @Author Eric
- * @Date 2017/5/5 11:17
- * @Desc
+ *
+ * @author Eric
+ * @since  2017/5/5 11:17
  */
+
 @Data
 @Builder
 public class Company {

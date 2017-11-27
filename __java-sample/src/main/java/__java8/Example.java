@@ -2,6 +2,7 @@ package __java8;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +36,19 @@ public class Example {
             Integer cnt;
             count.put(openid, (cnt = count.get(openid)) != null ? cnt + 1 : 1);
         }
-        System.out.println(count);
+
+        TreeMap<String, String> treeMap = new TreeMap<>();
+        treeMap.put("c", "ccccc");
+        treeMap.put("a", "aaaaa");
+        treeMap.put("b", "bbbbb");
+        treeMap.put("d", "ddddd");
+        for (String key : treeMap.keySet()) {
+            System.out.println(key);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Eric");
+        System.out.println(builder.toString().contains("Eric"));
     }
 
 }

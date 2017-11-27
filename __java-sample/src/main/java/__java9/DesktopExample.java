@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
  */
 public class DesktopExample {
 
-    static final Desktop DESKTOP = Desktop.getDesktop();
+    private static final Desktop DESKTOP = Desktop.getDesktop();
 
     public static void main(String[] args) {
         try {

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.sssarm.entity.Util.OBJECT_MAPPER;
+import static com.sssarm.entity.JSONUtil.OBJECT_MAPPER;
 
 /**
- * @Author Eric
- * @Date 2017/5/9 18:07
- * @Desc
+ *
+ * @author Eric
+ * @since  2017/5/9 18:07
  */
 @Controller
 public class HomeController {

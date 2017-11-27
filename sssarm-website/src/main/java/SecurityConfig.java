@@ -7,18 +7,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * @Author Eric
- * @Date 2017/5/10 11:39
- * @Desc
+ * @author Eric
+ * @since  2017/5/10 11:39
  */
 @Configuration
 @ComponentScan("com.sssarm")
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/", "/home", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -32,8 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
+        auth.inMemoryAuthentication()
                 .withUser("1").password("1").roles("USER");
     }
 }

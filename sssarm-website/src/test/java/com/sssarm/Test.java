@@ -2,7 +2,7 @@ package com.sssarm;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sssarm.entity.Company;
-import com.sssarm.entity.Util;
+import com.sssarm.entity.JSONUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +38,7 @@ public class Test {
                 .filter(company -> company.getAddress().equalsIgnoreCase("china"))
                 .collect(Collectors.toMap(Company::getAddress, temp -> temp));
 
-        System.out.println(Util.OBJECT_MAPPER.writeValueAsString(map));
+        System.out.println(JSONUtil.OBJECT_MAPPER.writeValueAsString(map));
     }
 
 }
