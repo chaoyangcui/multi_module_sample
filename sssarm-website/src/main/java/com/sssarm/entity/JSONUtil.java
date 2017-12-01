@@ -19,6 +19,10 @@ public final class JSONUtil {
         OBJECT_MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 
+    /**
+     * 设置日期格式化,默认:yyyy-MM-dd HH:mm:ss
+     * @param fmt 格式化参数字符串, e.g., yyyy-MM-dd HH:mm:ss
+     */
     public static void setDateFormat(final String fmt) {
         OBJECT_MAPPER.setDateFormat(new SimpleDateFormat(fmt));
     }
