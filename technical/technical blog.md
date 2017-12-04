@@ -1,4 +1,6 @@
-# technical blog
+# Technical BLOG
+
+[TOC]
 
 ## MySQL
 [项目中常用的19条MySQL优化](https://segmentfault.com/a/1190000012155267)
@@ -11,6 +13,7 @@
 [轻量级分布式 RPC 框架](http://www.importnew.com/20327.html)
 ## 树
 [完全二叉树实现优先队列与堆排序](http://www.jianshu.com/p/9a456d1b59b5)
+[算法爱好者 - 更多 | 十条](http://10tiao.com/author/index?authorId=367)
 
 ## [*ThreadPoolExecutor*](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html)
 [Java线程池`ThreadPoolExecutor`详解](http://www.crazyant.net/2124.html)
