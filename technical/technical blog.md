@@ -8,6 +8,7 @@
 [MySQL索引原理及慢查询优化](https://tech.meituan.com/mysql-index.html)
 [MySQL索引背后的数据结构及算法原理](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
 ## 设计模式
+[Examples of GoF Design Patterns in Java's core libraries](https://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns-in-javas-core-libraries/2707195#2707195)
 [20 个设计模式和软件设计面试问题](http://www.importnew.com/12649.html)
 ## RPC框架
 [轻量级分布式 RPC 框架](http://www.importnew.com/20327.html)
