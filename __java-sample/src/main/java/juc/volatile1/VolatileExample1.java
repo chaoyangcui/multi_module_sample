@@ -23,12 +23,12 @@ public class VolatileExample1 {
         VolatileExample1 volatileExample = new VolatileExample1();
         for (int i = 0; i < 3000; i++) {
             new Thread(() -> {
-                // countDownLatch.countDown();
-                // try {
-                //     countDownLatch.await();
-                // } catch (InterruptedException e) {
-                //     e.printStackTrace();
-                // }
+                /*countDownLatch.countDown();
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
                 volatileExample.increase();
             }).start();
         }
