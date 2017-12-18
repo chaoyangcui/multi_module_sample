@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        /*http.authorizeRequests()
                 .antMatchers("/", "/home", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -26,12 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll();*/
+        http.authorizeRequests().antMatchers("/").permitAll();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("1").password("1").roles("USER");
+                .withUser("abc@163.com").password("1").roles("USER");
     }
 }

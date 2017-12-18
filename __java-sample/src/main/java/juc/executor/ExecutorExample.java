@@ -1,5 +1,6 @@
 package juc.executor;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -39,6 +40,10 @@ public class ExecutorExample {
         // System.out.println(Integer.toBinaryString(-1));
         // System.out.println(Integer.toBinaryString(RUNNING));
 
+        new ArrayList<String>(){{
+            add("a");
+        }};
+
         printBinary(1);
         // -1
         // 原码
@@ -54,11 +59,13 @@ public class ExecutorExample {
         System.out.println(String.format("%32s", binary).replace(" ", "0"));
     }
 
+
     private static final int corePoolSize = 3;
     private static final int maximumPoolSize = 6;
     private static final long keepAliveTime = 0L;
     private static final BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(10);
     private static final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+
     public static void main1(String[] args) {
         // ThreadPoolExecutor executor =
         //         new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
