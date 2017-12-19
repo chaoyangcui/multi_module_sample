@@ -1,4 +1,4 @@
-﻿package xulingbo.zookeeper.synchronizing;
+package xulingbo.zookeeper.synchronizing;
 
 
 import org.apache.log4j.Logger;

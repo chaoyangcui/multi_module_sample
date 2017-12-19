@@ -1,4 +1,4 @@
-﻿package xulingbo.zookeeper.Queue;
+package xulingbo.zookeeper.Queue;
 
 import xulingbo.zookeeper.TestMainClient;
 import xulingbo.zookeeper.TestMainServer;
@@ -48,7 +48,7 @@ public class FIFOQueue extends TestMainClient {
      * @param i
      * @return
      */
-    private boolean produce(int i) throws KeeperException, InterruptedException {
+    boolean produce(int i) throws KeeperException, InterruptedException {
         ByteBuffer b = ByteBuffer.allocate(4);
         byte[] value;
         b.putInt(i);

@@ -1,4 +1,4 @@
-﻿package xulingbo.zookeeper;
+package xulingbo.zookeeper;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.zookeeper.WatchedEvent;

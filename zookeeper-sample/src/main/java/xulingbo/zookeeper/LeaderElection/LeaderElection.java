@@ -1,4 +1,4 @@
-﻿package xulingbo.zookeeper.LeaderElection;
+package xulingbo.zookeeper.LeaderElection;
 
 import xulingbo.zookeeper.TestMainClient;
 import xulingbo.zookeeper.TestMainServer;
@@ -21,7 +21,7 @@ import java.net.UnknownHostException;
 public class LeaderElection extends TestMainClient {
     private static final Logger logger = Logger.getLogger(LeaderElection.class);
 
-    private LeaderElection(String connectString, String root) {
+    public LeaderElection(String connectString, String root) {
         super(connectString);
         this.root = root;
         if (zk != null) {
@@ -36,7 +36,7 @@ public class LeaderElection extends TestMainClient {
         }
     }
 
-    private void findLeader() throws InterruptedException, UnknownHostException, KeeperException {
+    public void findLeader() throws InterruptedException, UnknownHostException, KeeperException {
         byte[] leader = null;
         try {
             leader = zk.getData(root + "/leader", true, null);
@@ -78,11 +78,11 @@ public class LeaderElection extends TestMainClient {
         }
     }
 
-    private void leading() {
+    void leading() {
         System.out.println("成为领导者");
     }
 
-    private void following() {
+    void following() {
         System.out.println("成为组成员");
     }
 

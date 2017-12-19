@@ -1,4 +1,4 @@
-﻿package xulingbo.zookeeper.locks;
+package xulingbo.zookeeper.locks;
 
 import xulingbo.zookeeper.TestMainClient;
 import xulingbo.zookeeper.TestMainServer;
@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class Locks extends TestMainClient {
     private static final Logger logger = Logger.getLogger(Locks.class);
-    private String myZnode;
+    String myZnode;
 
-    private Locks(String connectString, String root) {
+    public Locks(String connectString, String root) {
         super(connectString);
         this.root = root;
         if (zk != null) {
@@ -37,7 +37,7 @@ public class Locks extends TestMainClient {
         }
     }
 
-    private void getLock() throws KeeperException, InterruptedException {
+    void getLock() throws KeeperException, InterruptedException {
         List<String> list = zk.getChildren(root, false);
         String[] nodes = list.toArray(new String[list.size()]);
         Arrays.sort(nodes);
@@ -48,12 +48,12 @@ public class Locks extends TestMainClient {
         }
     }
 
-    private void check() throws InterruptedException, KeeperException {
+    void check() throws InterruptedException, KeeperException {
         myZnode = zk.create(root + "/lock_", new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
         getLock();
     }
 
-    private void waitForLock(String lower) throws InterruptedException, KeeperException {
+    void waitForLock(String lower) throws InterruptedException, KeeperException {
         Stat stat = zk.exists(root + "/" + lower, true);
         if (stat != null) {
             mutex.wait();
