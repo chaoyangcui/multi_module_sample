@@ -4,11 +4,10 @@ import javax.crypto.Cipher;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.NoSuchAlgorithmException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
+// import java.util.Base64;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,15 +34,35 @@ public class RSAUtil {
     // 私钥
     private static final String PRIVATE_KEY = "RSAPrivateKey";
 
-    private static final Base64.Encoder ENCODER = Base64.getEncoder();
-    private static final Base64.Decoder DECODER = Base64.getDecoder();
+    public static final String PrivateKey = "MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEAl7z_WrXLBI_Ex_fn4vLOWfwmF3f4hxQG3zlufnkACliGFOYD0NolOgVMuYRTdfBjnPiIibcYwWoj70VBS25nvwIDAQABAkAg85IgiMoFu5LoOhXJWyEkuXUsM4ltDBRR9Y7hODWiCTG4QyN64JoB3gvc2Fm30KgIPe5pg_5NyLJsJ5dQzm5BAiEAyB8aJpF6UxfN6V-uEPhbIqoQTh1l9HUZTHF_S_ntTYsCIQDCG2k5hhmnNOwrLXCMKji6Ypxqo9HK51Cxs7MwT4e9HQIhALeTAFQc409R6MuJv41FpaQ4yNg_U4VZ3akn_BPf4fVdAiEAlgVRgmAem5jPn19zSSGozoVAlzsd_lBhkbZtm70cEBECIQCtDCYdzknKeuBt7YbmoWyWmeNIlSXaiDwOeDSl2hgytw";
+    public static final String PublicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJe8_1q1ywSPxMf35-Lyzln8Jhd3-IcUBt85bn55AApYhhTmA9DaJToFTLmEU3XwY5z4iIm3GMFqI-9FQUtuZ78CAwEAAQ";
 
+    // private static final Base64.Encoder ENCODER = Base64.getEncoder();
+    // private static final Base64.Decoder DECODER = Base64.getDecoder();
     public static byte[] base64Decode(final String data) {
-        return DECODER.decode(data);
+        return org.apache.commons.codec.binary.Base64.decodeBase64(data);
+        // return DECODER.decode(data);
     }
 
     public static String base64Encode(byte[] data) {
-        return ENCODER.encodeToString(data);
+        return org.apache.commons.codec.binary.Base64.encodeBase64URLSafeString(data);
+        // return ENCODER.encodeToString(data);
+    }
+
+    private static final KeyPair KEY_PAIR;
+    static {
+        // 实例化密钥生成器
+        KeyPairGenerator keyPairGenerator = null;
+        try {
+            keyPairGenerator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // 初始化密钥生成器
+        assert keyPairGenerator != null;
+        keyPairGenerator.initialize(KEY_SIZE);
+        // 生成密钥对
+        KEY_PAIR = keyPairGenerator.generateKeyPair();
     }
 
     /**
@@ -69,9 +88,15 @@ public class RSAUtil {
     public static byte[] getPrivateKey(KeyPair keyPair) {
         return keyPair.getPrivate().getEncoded();
     }
-
+    public static byte[] getPrivateKey() {
+        return KEY_PAIR.getPrivate().getEncoded();
+    }
     public static String getPrivateKeyString(KeyPair keyPair) throws Exception {
         return new String(keyPair.getPrivate().getEncoded(), UTF_8);
+    }
+    public static String getPrivateKeyString() throws Exception {
+        return base64Encode(KEY_PAIR.getPrivate().getEncoded());
+        // return new String(KEY_PAIR.getPrivate().getEncoded(), UTF_8);
     }
 
     /**
@@ -83,9 +108,16 @@ public class RSAUtil {
     public static byte[] getPublicKey(KeyPair keyPair) {
         return keyPair.getPublic().getEncoded();
     }
-
+    public static byte[] getPublicKey() {
+        return KEY_PAIR.getPublic().getEncoded();
+    }
     public static String getPublicKeyString(KeyPair keyPair) throws Exception {
+        keyPair = (keyPair != null) ? keyPair : KEY_PAIR;
         return new String(keyPair.getPublic().getEncoded(), UTF_8);
+    }
+    public static String getPublicKeyString() throws Exception {
+        return base64Encode(KEY_PAIR.getPublic().getEncoded());
+        // return new String(KEY_PAIR.getPublic().getEncoded(), UTF_8);
     }
 
     /**
@@ -101,11 +133,14 @@ public class RSAUtil {
         // 实例化密钥工厂
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         // 生成私钥
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+        java.security.PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
         // 数据加密
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
         return cipher.doFinal(data);
+    }
+    public static byte[] encryptByPrivateKey(byte[] data) throws Exception {
+        return encryptByPrivateKey(data, getPrivateKey());
     }
 
     public static String encryptByPrivateKey(final String data, byte[] key) throws Exception {
@@ -114,6 +149,13 @@ public class RSAUtil {
         }
         byte[] encryptData = encryptByPrivateKey(data.getBytes(UTF_8), key);
         return base64Encode(encryptData);
+    }
+    public static String encryptByPrivateKey(final String data, String key) throws Exception {
+        return encryptByPrivateKey(data, base64Decode(key));
+    }
+    public static String encryptByPrivateKey(final String data) throws Exception {
+        byte[] key = getPrivateKey();
+        return encryptByPrivateKey(data, key);
     }
 
     /**
@@ -129,16 +171,25 @@ public class RSAUtil {
         // 实例化密钥工厂
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         // 生成公钥
-        PublicKey publicKey = keyFactory.generatePublic(keySpec);
+        java.security.PublicKey publicKey = keyFactory.generatePublic(keySpec);
         // 数据解密
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         return cipher.doFinal(data);
     }
+    public static byte[] encryptByPublicKey(byte[] data) throws Exception {
+        return encryptByPublicKey(data, getPublicKey());
+    }
 
     public static String encryptByPublicKey(final String data, byte[] key) throws Exception {
         byte[] encryptData = encryptByPublicKey(data.getBytes(UTF_8), key);
         return base64Encode(encryptData);
+    }
+    public static String encryptByPublicKey(final String data, String key) throws Exception {
+        return encryptByPublicKey(data, base64Decode(key));
+    }
+    public static String encryptByPublicKey(final String data) throws Exception {
+        return encryptByPublicKey(data, getPublicKey());
     }
 
     /**
@@ -148,23 +199,32 @@ public class RSAUtil {
      * @param key  私钥
      * @return 解密后的数据
      */
-    public static byte[] descryptByPrivateKey(byte[] data, byte[] key) throws Exception {
+    public static byte[] decryptByPrivateKey(byte[] data, byte[] key) throws Exception {
         // 取得私钥
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(key);
         // 实例化密钥工厂
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         // 生成私钥
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+        java.security.PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
         // 解密数据
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
+    public static byte[] decryptByPrivateKey(byte[] data) throws Exception {
+        return decryptByPrivateKey(data, getPrivateKey());
+    }
 
-    public static String descryptByPrivateKey(final String data, byte[] key) throws Exception {
+    public static String decryptByPrivateKey(final String data, byte[] key) throws Exception {
         byte[] encryptData = base64Decode(data);
-        byte[] descryptData = descryptByPrivateKey(encryptData, key);
-        return new String(descryptData, UTF_8);
+        byte[] decryptData = decryptByPrivateKey(encryptData, key);
+        return new String(decryptData, UTF_8);
+    }
+    public static String decryptByPrivateKey(final String data, String key) throws Exception {
+        return decryptByPrivateKey(data, base64Decode(key));
+    }
+    public static String decryptByPrivateKey(final String data) throws Exception {
+        return decryptByPrivateKey(data, getPrivateKey());
     }
 
     /**
@@ -174,23 +234,32 @@ public class RSAUtil {
      * @param key  公钥
      * @return 解密后的数据
      */
-    public static byte[] descryptByPublicKey(byte[] data, byte[] key) throws Exception {
+    public static byte[] decryptByPublicKey(byte[] data, byte[] key) throws Exception {
         // 获得公钥
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(key);
         // 实例化密钥工厂
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         // 生成公钥
-        PublicKey publicKey = keyFactory.generatePublic(keySpec);
+        java.security.PublicKey publicKey = keyFactory.generatePublic(keySpec);
         // 解密数据
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.DECRYPT_MODE, publicKey);
         return cipher.doFinal(data);
     }
+    public static byte[] decryptByPublicKey(byte[] data) throws Exception {
+        return decryptByPublicKey(data, getPublicKey());
+    }
 
-    public static String descryptByPublicKey(final String data, byte[] key) throws Exception {
+    public static String decryptByPublicKey(final String data, byte[] key) throws Exception {
         byte[] encryptData = base64Decode(data);
-        byte[] descryptData = descryptByPublicKey(encryptData, key);
-        return new String(descryptData, UTF_8);
+        byte[] decryptData = decryptByPublicKey(encryptData, key);
+        return new String(decryptData, UTF_8);
+    }
+    public static String decryptByPublicKey(final String data, String key) throws Exception {
+        return decryptByPublicKey(data, base64Decode(key));
+    }
+    public static String decryptByPublicKey(final String data) throws Exception {
+        return decryptByPublicKey(data, getPublicKey());
     }
 
 
@@ -202,23 +271,23 @@ public class RSAUtil {
         final String data = "深入理解Java虚拟机";
         System.out.println("原始数据:  " + data);
 
-        byte[] encryptDataByte, descryptDataByte;
-        String encryptData, descryptData;
+        byte[] encryptDataByte, decryptDataByte;
+        String encryptData, decryptData;
 
         // 私钥加密
         encryptData = RSAUtil.encryptByPrivateKey(data, privateKey);
         System.out.println("私钥加密之后的数据:  " + encryptData);
         // 公钥解密
-        descryptData = RSAUtil.descryptByPublicKey(encryptData, publicKey);
-        System.out.println("公钥解密之后的数据:  " + descryptData);
+        decryptData = RSAUtil.decryptByPublicKey(encryptData, publicKey);
+        System.out.println("公钥解密之后的数据:  " + decryptData);
 
         System.out.println("==================================");
 
         //  公钥加密
         encryptData = RSAUtil.encryptByPublicKey(data, publicKey);
         System.out.println("公钥加密后的数据:  " + encryptData);
-        descryptData = RSAUtil.descryptByPrivateKey(encryptData, privateKey);
-        System.out.println("私钥解密后的数据:  " + descryptData);
+        decryptData = RSAUtil.decryptByPrivateKey(encryptData, privateKey);
+        System.out.println("私钥解密后的数据:  " + decryptData);
 
         ThreadLocal<String> threadLocal = new ThreadLocal<>();
         threadLocal.get();
