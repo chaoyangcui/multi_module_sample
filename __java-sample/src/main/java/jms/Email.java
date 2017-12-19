@@ -2,8 +2,8 @@ package jms;
 
 /**
  * Created by Intellij IDEA.
- * Author: Eric Cui
  * Date  : 2017/9/4 22:45
+ * @author Eric Cui
  * Desc  : 描述信息
  */
 public class Email {

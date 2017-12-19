@@ -17,8 +17,8 @@ import javax.jms.ConnectionFactory;
 
 /**
  * Created by Intellij IDEA.
- * Author: Eric Cui
  * Date  : 2017/9/4 22:43
+ * @author cuiguiyang
  * Desc  : 描述信息
  */
 @SpringBootApplication
@@ -35,7 +35,11 @@ public class Application {
         return factory;
     }
 
-    @Bean // Serialize message content to json using TextMessage
+    /**
+     * Serialize message content to json using TextMessage
+     * @return MessageConverter
+     */
+    @Bean
     public MessageConverter jacksonJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);

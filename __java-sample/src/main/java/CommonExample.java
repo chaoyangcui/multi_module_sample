@@ -1,8 +1,7 @@
 /**
  * Created by IntelliJ IDEA.
- *
- * @author Eric
  * Date    2017/8/30 16:18
+ * @author Eric
  * Desc    Global configuration
  */
 public class CommonExample {
@@ -13,7 +12,7 @@ public class CommonExample {
 
     public static void main(String[] args) {
         // ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
-        // map.put("key", "value");
+        // put("key", "value");
 
         VolatileTest volatileTest = new VolatileTest();
         for (int i = 0; i < 50; i++) {
