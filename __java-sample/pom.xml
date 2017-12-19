@@ -100,12 +100,6 @@
             <version>5.3.5.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
-        </dependency>
-
         <!--date-->
         <dependency>
             <groupId>joda-time</groupId>
