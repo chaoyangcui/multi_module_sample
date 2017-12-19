@@ -3,6 +3,7 @@
 [TOC]
 
 ## MySQL
+[MySQL varchar长度解析](https://ruby-china.org/topics/24920)
 [项目中常用的19条MySQL优化](https://segmentfault.com/a/1190000012155267)
 [MySQL外键约束 之CASCADE、SET NULL、RESTRICT、NO ACTION分析和作用](http://www.cnblogs.com/yzuzhang/p/5174720.html)
 [MySQL索引原理及慢查询优化](https://tech.meituan.com/mysql-index.html)
@@ -24,6 +25,7 @@
 
 [浅谈Java并发编程中的若干核心技术](http://www.jianshu.com/p/5f499f8212e7)
 [Java多线程干货系列（1）：Java多线程基础](http://www.importnew.com/21136.html)
+[Java多线程编程那些事：volatile解惑](http://www.infoq.com/cn/articles/java-multi-thread-volatile?utm_source=articles_about_java&utm_medium=link&utm_campaign=java)
 
 ## HTTP
 [99%的人都理解错了HTTP中GET与POST的区别](http://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&mid=100000054&idx=1&sn=71f6c214f3833d9ca20b9f7dcd9d33e4#rd)
