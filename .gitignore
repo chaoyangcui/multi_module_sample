@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 __java-sample/java-sample.iml
-cndotaer-core/
+cndotaer-core/cndotaer-core.iml
 java-design-patterns/abstract-factory/abstract-factory.iml
 java-design-patterns/adapter/adapter.iml
 java-design-patterns/bridge/bridge.iml
@@ -51,15 +51,8 @@ java-design-patterns/template-method/template-method.iml
 java-design-patterns/thread-pool/thread-pool.iml
 java-design-patterns/tolerant-reader/tolerant-reader.iml
 java-design-patterns/visitor/visitor.iml
-m2pT.data
-min2phase/min2phase.iml
-min2phase/src/main/java/META-INF/
-min2phase/src/test/
-multi-module-sample.iml
-simpleweb/
+simpleweb/simpleweb.iml
 sssarm-website/sssarm-website.iml
 tensorflow-sample/tensorflow-sample.iml
 zookeeper-sample/zookeeper-sample.iml
-/min2phase/
-!/cndotaer-core/
-!/simpleweb/
+multi-module-sample.iml
