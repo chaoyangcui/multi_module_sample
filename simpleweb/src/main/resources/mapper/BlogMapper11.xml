@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sssarm.mapper.BlogMapper">
+    <select id="findById" parameterType="int" resultMap="detailedBlogResultMap">
+        SELECT
+        b.blog_id,
+        b.blog_title,
+        a.author_id,
+        a.author_username,
+        a.author_password,
+        a.author_email,
+        a.author_bio,
+        a.author_favourite_section,
+        p.post_id,
+        p.post_subject,
+        p.post_body,
+        t.tag_id,
+        t.tag_name
+        FROM
+        blog b
+        LEFT JOIN author a ON b.blog_author_id = a.author_id
+        LEFT JOIN post p ON b.blog_id = p.blog_id
+        LEFT JOIN post_tag pt ON pt.post_id=p.post_id
+        LEFT JOIN tag t ON pt.tag_id=t.tag_id
+        WHERE b.blog_id = #{id}
+    </select>
+    <resultMap id="detailedBlogResultMap" type="com.sssarm.domain.Blog">
+        <constructor>
+            <idArg column="blog_id" javaType="int" />
+        </constructor>
+        <result property="title" column="blog_title" />
+        <association property="author" column="blog_author_id" javaType="com.sssarm.domain.Author">
+            <id property="id" column="author_id" />
+            <result property="username" column="author_username" />
+            <result property="password" column="author_password" />
+            <result property="email" column="author_email" />
+            <result property="bio" column="author_bio" />
+            <result property="favouriteSection" column="author_favourite_section" />
+        </association>
+        <collection property="posts" ofType="com.sssarm.domain.Post">
+            <id property="id" column="post_id" />
+            <result property="subject" column="post_subject" />
+            <result property="body" column="post_body" />
+            <association property="author" column="post_author_id" javaType="com.sssarm.domain.Author">
+                <id property="id" column="author_id" />
+                <result property="username" column="author_username" />
+                <result property="password" column="author_password" />
+                <result property="email" column="author_email" />
+                <result property="bio" column="author_bio" />
+                <result property="favouriteSection" column="author_favourite_section" />
+            </association>
+            <collection property="tags" column="post_id" ofType="com.sssarm.domain.Tag">
+                <id property="id" column="tag_id" />
+                <id property="name" column="tag_name" />
+            </collection>
+        </collection>
+    </resultMap>
+</mapper>
