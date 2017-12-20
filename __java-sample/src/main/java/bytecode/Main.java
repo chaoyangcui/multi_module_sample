@@ -10,6 +10,10 @@ package bytecode;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+        System.out.println(222D);
+        System.out.println(127);
+        System.out.println(128);
+        System.out.println(1299);
         int c = new Main().t1();
     }
 
