@@ -10,5 +10,13 @@ package bytecode;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+        int c = new Main().t1();
+    }
+
+    public int t1() {
+        int a = 1;
+        final int b = 2;
+        System.out.println(b);
+        return a;
     }
 }
