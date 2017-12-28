@@ -70,7 +70,7 @@ public class CommonExample {
     //     n |= n >>> 8;
     //     n |= n >>> 16;
     //     return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
-    // }Ø
+    // }
 }
 
 class VolatileTest {

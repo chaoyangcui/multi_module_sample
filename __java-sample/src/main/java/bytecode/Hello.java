@@ -1,7 +1,7 @@
 package bytecode;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,15 @@ import java.util.Arrays;
  * Desc    Setting | Editor | File and Code Templates
  */
 public class Hello {
-    public static void main(String[] args) throws ArrayIndexOutOfBoundsException, UnsupportedEncodingException {
-        System.out.println(Arrays.toString("中".getBytes("UTF-8")));
+    public static void main(String[] args) {
+        List<Hello> list = new ArrayList<>();
+        while (true) {
+            list.add(new Hello());
+        }
     }
+
+    public void recursion() {
+    }
+
+    private byte[] bytes = new byte[1024 * 2];
 }
