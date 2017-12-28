@@ -1,15 +1,10 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sssarm.entity.SssarmEntity;
-import org.joda.time.DateTime;
-import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
-
-import static com.sssarm.util.Util.OBJECT_MAPPER;
 
 /**
  * Created by cuiguiyang on 2017/5/8 23:12.

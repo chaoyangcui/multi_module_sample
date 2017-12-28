@@ -13,12 +13,13 @@ import java.util.concurrent.RecursiveTask;
  * @date 2017/12/27 15:54
  * Desc    Setting | Editor | File and Code Templates
  */
-public class ForkJoinFrame {
+public class ForkJoinTest {
 
     public static void main(String[] args) {
         ForkJoinPool forkJoinPool = new ForkJoinPool(8);
         try {
-            Future<String> future = forkJoinPool.submit(new CountTask(1, 10));
+            CountTask task = new CountTask(1, 10);
+            Future<String> future = forkJoinPool.submit(task);
             System.out.println(future.get());
         } catch (Exception e) {
             e.printStackTrace();

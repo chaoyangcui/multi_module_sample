@@ -14,21 +14,6 @@ public class CommonExample {
         // ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
         // put("key", "value");
 
-        VolatileTest volatileTest = new VolatileTest();
-        for (int i = 0; i < 50; i++) {
-            int anInt = i;
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                volatileTest.setAnInt(anInt);
-                volatileTest.print(Thread.currentThread().getName());
-            }, "Thread-" + anInt).start();
-        }
-
         System.out.println(1 & 2);
 
         for (int i = 0, bound = 0;;) {
@@ -61,26 +46,15 @@ public class CommonExample {
     }
 
 
-    // private static final int MAXIMUM_CAPACITY = 1 << 30;
-    // private static final int tableSizeFor(int c) {
-    //     int n = c - 1;
-    //     n |= n >>> 1;
-    //     n |= n >>> 2;
-    //     n |= n >>> 4;
-    //     n |= n >>> 8;
-    //     n |= n >>> 16;
-    //     return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
-    // }
-}
-
-class VolatileTest {
-    private volatile int anInt;
-
-    public void setAnInt(int anInt) {
-        this.anInt = anInt;
-    }
-
-    public void print(String threadName) {
-        System.out.println(threadName + ".anInt:" + anInt);
+    private static final int MAXIMUM_CAPACITY = 1 << 30;
+    private static final int tableSizeFor(int c) {
+        int n = c - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
 }
+
