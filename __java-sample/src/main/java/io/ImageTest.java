@@ -77,15 +77,15 @@ import java.nio.file.Paths;
  */
 public class ImageTest {
 
-    private static final int RBG_WHITE = new Color(255, 255, 255).getRGB();
-    private static final int RBG_BLACK = new Color(0, 0, 0).getRGB();
+    public static final int RBG_WHITE = new Color(255, 255, 255).getRGB();
+    public static final int RBG_BLACK = new Color(0, 0, 0).getRGB();
 
     public static void main(String[] args) throws IOException {
 
         String path = new ImageTest().getCurrFilePath();
         System.out.println(path);
 
-        String fileName = "trailer.jpg";
+        String fileName = "finddiff.png";
         File fromFile = Paths.get(path + fileName).toFile();
         if (!fromFile.exists()) {
             System.out.println("file not exist.");
@@ -102,6 +102,7 @@ public class ImageTest {
         // 获取当前图片的高,宽,ARGB
         int h = bufferedImage.getHeight();
         int w = bufferedImage.getWidth();
+        System.out.println(String.format("height: %d, width: %d", h, w));
         int arr[][] = new int[w][h];
 
         // 获取图片每一像素点的灰度值
