@@ -36,62 +36,64 @@ public class ReadWriteLockExample {
             e.printStackTrace();
         }
     }
-}
 
-class CachedData {
-    private static Object data;
-    private static volatile boolean cacheValid;
-    private static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
-    private static final ReentrantReadWriteLock.ReadLock READ_LOCK = rwl.readLock();
-    private static final ReentrantReadWriteLock.WriteLock WRITE_LOCK = rwl.writeLock();
 
-    public static void main(String[] args) {
-        // processData("...");
-        for (int i = 0; i < 10; i++) {
-            int p = i;
-            new Thread(() -> processData(p), "thread-" + i).start();
-        }
-    }
+    static class CachedData {
+        private static Object data;
+        private static volatile boolean cacheValid;
+        private static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+        private static final ReentrantReadWriteLock.ReadLock READ_LOCK = rwl.readLock();
+        private static final ReentrantReadWriteLock.WriteLock WRITE_LOCK = rwl.writeLock();
 
-    private static void processData(Object p) {
-        READ_LOCK.lock();
-        if (!cacheValid) {
-            READ_LOCK.unlock();
-            WRITE_LOCK.lock();
-            if (!cacheValid) {
-                data = p;
-                cacheValid = true;
+        public static void main(String[] args) {
+            // processData("...");
+            for (int i = 0; i < 10; i++) {
+                int p = i;
+                new Thread(() -> processData(p), "thread-" + i).start();
             }
-            // Downgrade by acquiring read LOCK before releasing write LOCK
+        }
+
+        private static void processData(Object p) {
             READ_LOCK.lock();
-            WRITE_LOCK.unlock();
-        }
-        use(data);
-        READ_LOCK.unlock();
-    }
-
-    private static void processCachedData() {
-        rwl.readLock().lock();
-        if (!cacheValid) {
-            // Must release read LOCK before acquiring write LOCK
-            rwl.readLock().unlock();
-            rwl.writeLock().lock();
-            // Recheck state because another thread might have acquired
-            //   write LOCK and changed state before we did.
             if (!cacheValid) {
-                data = "...";
-                cacheValid = true;
+                READ_LOCK.unlock();
+                WRITE_LOCK.lock();
+                if (!cacheValid) {
+                    data = p;
+                    cacheValid = true;
+                }
+                // Downgrade by acquiring read LOCK before releasing write LOCK
+                READ_LOCK.lock();
+                WRITE_LOCK.unlock();
             }
-            // Downgrade by acquiring read LOCK before releasing write LOCK
-            rwl.readLock().lock();
-            rwl.writeLock().unlock(); // Unlock write, still hold read
+            use(data);
+            READ_LOCK.unlock();
         }
 
-        use(data);
-        rwl.readLock().unlock();
-    }
+        private static void processCachedData() {
+            rwl.readLock().lock();
+            if (!cacheValid) {
+                // Must release read LOCK before acquiring write LOCK
+                rwl.readLock().unlock();
+                rwl.writeLock().lock();
+                // Recheck state because another thread might have acquired
+                //   write LOCK and changed state before we did.
+                if (!cacheValid) {
+                    data = "...";
+                    cacheValid = true;
+                }
+                // Downgrade by acquiring read LOCK before releasing write LOCK
+                rwl.readLock().lock();
+                rwl.writeLock().unlock(); // Unlock write, still hold read
+            }
 
-    private static void use(Object data) {
-        System.out.println("Thread:" + Thread.currentThread().getName() + "'s data:" + data);
+            use(data);
+            rwl.readLock().unlock();
+        }
+
+        private static void use(Object data) {
+            System.out.println("Thread:" + Thread.currentThread().getName() + "'s data:" + data);
+        }
     }
 }
+

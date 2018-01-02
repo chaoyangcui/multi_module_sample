@@ -1,14 +1,14 @@
 package data.structure;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import demo.Base;
+import demo.JSONUtil;
 
 /**
  * @author Eric
  * Date 2017/5/4 10:11
  * Desc
  */
-public class BinarySearchTree extends Base {
+public class BinarySearchTree {
 
     private static Node<Integer, Object> root;
 
@@ -28,7 +28,7 @@ public class BinarySearchTree extends Base {
                 // binarySearchTree.insert(key);
             }
             binarySearchTree.insert(BinarySearchTree.root, new Node<>(8));
-            System.out.println(OBJECT_MAPPER.writeValueAsString(BinarySearchTree.root));
+            System.out.println(JSONUtil.obj2String (BinarySearchTree.root));
 
             // search
             // Node<Integer, Object> node = binarySearchTree.search(BinarySearchTree.root, 1);
@@ -45,7 +45,7 @@ public class BinarySearchTree extends Base {
             // binarySearchTree.delete(8);
             // System.out.println(OBJECT_MAPPER.writeValueAsString(BinarySearchTree.root));
 
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

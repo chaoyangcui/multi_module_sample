@@ -12,9 +12,11 @@
 
     <modules>
         <module>__java-sample</module>
-        <module>zookeeper-sample</module>
-        <module>sssarm-website</module>
+        <module>cndotaer-core</module>
         <module>java-design-patterns</module>
+        <module>simpleweb</module>
+        <module>sssarm-website</module>
+        <module>zookeeper-sample</module>
     </modules>
 
     <properties>

@@ -1,6 +1,5 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Throwables;
-import demo.Base;
+import demo.JSONUtil;
 import entity.Company;
 
 import javax.validation.ConstraintViolation;
@@ -14,14 +13,14 @@ import java.util.Set;
  * Date 2017/5/9 13:50
  * desc
  */
-public class Main extends Base {
+public class Main {
 
     public static void main(String[] args) {
         Company company = Company.builder().ifPublic(true).address("address").aDouble(111.111D).build();
         System.out.println(company.toString());
         try {
-            System.out.println(OBJECT_MAPPER.writeValueAsString(company));
-        } catch (JsonProcessingException e) {
+            System.out.println(JSONUtil.obj2String(company));
+        } catch (Exception e) {
             System.out.println(Throwables.getStackTraceAsString(e));
             e.printStackTrace();
         }

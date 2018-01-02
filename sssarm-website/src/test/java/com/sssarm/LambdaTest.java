@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @Date 2017/5/11 20:23
  * @Desc
  */
-public class Test {
+public class LambdaTest {
 
     @org.junit.Test
     public void test() throws JsonProcessingException {

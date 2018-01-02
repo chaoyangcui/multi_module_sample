@@ -11,37 +11,33 @@ public class VisibilityDemo {
     public static void main(String[] args) throws InterruptedException {
 
         CountingThread backgroundThread = new CountingThread();
-
         backgroundThread.start();
 
         Thread.sleep(1000);
 
         backgroundThread.cancel();
-
         backgroundThread.join();
 
         System.out.printf("count:%s", backgroundThread.count);
-
     }
 
-}
 
-class CountingThread extends Thread {
+    static class CountingThread extends Thread {
+        //线程停止标志
+        private volatile boolean ready = false;
 
-    //线程停止标志
+        public int count = 0;
 
-    private volatile boolean ready = false;
+        @Override
+        public void run() {
+            while (!ready) {
+                count++;
+            }
+        }
 
-    public int count = 0;
-
-    @Override
-    public void run() {
-        while (!ready) {
-            count++;
+        public void cancel() {
+            ready = true;
         }
     }
-
-    public void cancel() {
-        ready = true;
-    }
 }
+

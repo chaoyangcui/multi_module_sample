@@ -17,7 +17,7 @@ import java.util.Base64;
  * Date    2017/11/6 14:17
  * Desc    Setting | Editor | File and Code Templates
  */
-public class RSAUtil_1 {
+public class RSAUtil_Bak {
 
     // 非对称密钥算法
     public static final String KEY_ALGORITHM = "RSA";
@@ -195,9 +195,9 @@ public class RSAUtil_1 {
 
 
     public static void main(String[] args) throws Exception {
-        KeyPair keyPair = RSAUtil_1.getKeyPair();
-        byte[] privateKey = RSAUtil_1.getPrivateKey(keyPair);
-        byte[] publicKey = RSAUtil_1.getPublicKey(keyPair);
+        KeyPair keyPair = RSAUtil_Bak.getKeyPair();
+        byte[] privateKey = RSAUtil_Bak.getPrivateKey(keyPair);
+        byte[] publicKey = RSAUtil_Bak.getPublicKey(keyPair);
 
         final String data = "深入理解Java虚拟机";
         System.out.println("原始数据:  " + data);
@@ -206,18 +206,18 @@ public class RSAUtil_1 {
         String encryptData, descryptData;
 
         // 私钥加密
-        encryptData = RSAUtil_1.encryptByPrivateKey(data, privateKey);
+        encryptData = RSAUtil_Bak.encryptByPrivateKey(data, privateKey);
         System.out.println("私钥加密之后的数据:  " + encryptData);
         // 公钥解密
-        descryptData = RSAUtil_1.descryptByPublicKey(encryptData, publicKey);
+        descryptData = RSAUtil_Bak.descryptByPublicKey(encryptData, publicKey);
         System.out.println("公钥解密之后的数据:  " + descryptData);
 
         System.out.println("==================================");
 
         //  公钥加密
-        encryptData = RSAUtil_1.encryptByPublicKey(data, publicKey);
+        encryptData = RSAUtil_Bak.encryptByPublicKey(data, publicKey);
         System.out.println("公钥加密后的数据:  " + encryptData);
-        descryptData = RSAUtil_1.descryptByPrivateKey(encryptData, privateKey);
+        descryptData = RSAUtil_Bak.descryptByPrivateKey(encryptData, privateKey);
         System.out.println("私钥解密后的数据:  " + descryptData);
 
         ThreadLocal<String> threadLocal = new ThreadLocal<>();

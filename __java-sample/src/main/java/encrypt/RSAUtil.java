@@ -10,7 +10,12 @@ import java.security.spec.X509EncodedKeySpec;
 // import java.util.Base64;
 
 /**
- * Created by IntelliJ IDEA.
+ * add dependency to pom.xml
+ *   <dependency>
+ *       <groupId>commons-codec</groupId>
+ *       <artifactId>commons-codec</artifactId>
+ *       <version>1.9</version>
+ *   </dependency>
  *
  * @author Eric
  * Date    2017/11/6 14:17
@@ -94,7 +99,7 @@ public class RSAUtil {
     public static String getPrivateKeyString(KeyPair keyPair) throws Exception {
         return new String(keyPair.getPrivate().getEncoded(), UTF_8);
     }
-    public static String getPrivateKeyString() throws Exception {
+    public static String getPrivateKeyString() {
         return base64Encode(KEY_PAIR.getPrivate().getEncoded());
         // return new String(KEY_PAIR.getPrivate().getEncoded(), UTF_8);
     }
@@ -115,7 +120,7 @@ public class RSAUtil {
         keyPair = (keyPair != null) ? keyPair : KEY_PAIR;
         return new String(keyPair.getPublic().getEncoded(), UTF_8);
     }
-    public static String getPublicKeyString() throws Exception {
+    public static String getPublicKeyString() {
         return base64Encode(KEY_PAIR.getPublic().getEncoded());
         // return new String(KEY_PAIR.getPublic().getEncoded(), UTF_8);
     }
