@@ -82,11 +82,14 @@ public class ImageTest {
 
     public static void main(String[] args) throws IOException {
 
-        String path = new ImageTest().getPath().replaceFirst("/", "");
+        String path = new ImageTest().getCurrFilePath();
         System.out.println(path);
 
         String fileName = "trailer.jpg";
         File fromFile = Paths.get(path + fileName).toFile();
+        if (!fromFile.exists()) {
+            System.out.println("file not exist.");
+        }
         String toFileName = "dest.jpg";
         File toFile = Paths.get(path + toFileName).toFile();
         String grayFileName = "gray.jpg";
@@ -152,12 +155,21 @@ public class ImageTest {
 
 
     /**
-     * 获取当前类编译生成的class所在的绝对路径
+     * 获取当前类的绝对路径
      * @return
      */
-    public String getPath() {
+    public String getCurrFilePath() {
         URL url = getClass().getResource("");
-        return url.getPath();
+        String path = url.getPath();
+        String osName = System.getProperty("os.name", "");
+        path = path.replace("target/classes/", "src/main/java/");
+        if (osName.contains("Win")) {
+            if ('/' == path.charAt(0)) {
+                path = path.replaceFirst("/", "");
+            }
+        }
+        System.out.println("Path: " + path);
+        return path;
     }
 
     private static int getImageRgb(int i) {
