@@ -152,7 +152,7 @@ public class ImageTest {
 
 
     /**
-     * 获取当前类所在的绝对路径
+     * 获取当前类编译生成的class所在的绝对路径
      * @return
      */
     public String getPath() {
