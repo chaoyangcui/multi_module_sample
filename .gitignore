@@ -56,3 +56,7 @@ sssarm-website/sssarm-website.iml
 tensorflow-sample/tensorflow-sample.iml
 zookeeper-sample/zookeeper-sample.iml
 multi-module-sample.iml
+/__java-sample/src/main/java/io/dest.jpg
+/__java-sample/src/main/java/io/gray.jpg
+__java-sample/target/
+cndotaer-core/src/main/java/wsclient/
