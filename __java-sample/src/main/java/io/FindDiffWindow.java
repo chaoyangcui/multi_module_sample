@@ -74,7 +74,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class GridLayoutDemo extends JFrame {
+public class FindDiffWindow extends JFrame {
     static final String gapList[] = {"0", "10", "15", "20"};
     final static int maxGap = 20;
     JComboBox horGapComboBox;
@@ -85,7 +85,7 @@ public class GridLayoutDemo extends JFrame {
 
     private static final String PATH = new ImageTest().getCurrFilePath();
 
-    public GridLayoutDemo(String name) {
+    public FindDiffWindow(String name) {
         super(name);
         setResizable(false);
     }
@@ -221,7 +221,7 @@ public class GridLayoutDemo extends JFrame {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        GridLayoutDemo frame = new GridLayoutDemo("GridLayoutDemo");
+        FindDiffWindow frame = new FindDiffWindow("找茬");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
