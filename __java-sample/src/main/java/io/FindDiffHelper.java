@@ -15,18 +15,36 @@ import java.io.IOException;
  */
 public class FindDiffHelper {
 
-    public static final int TOP = 116;
-    public static final int LEFT = 148;
-    public static final int HEIGHT = 573;
-    public static final int WIDTH = 573;
-    public static final int GAP = 25;
+    static class IP6 {
+        public static final int TOP = 116;
+        public static final int LEFT = 148;
+        public static final int HEIGHT = 573;
+        public static final int WIDTH = 573;
+        public static final int GAP = 25;
+    }
+    static class MX2 {
+        public static final int TOP = 161;
+        public static final int LEFT = 183;
+        public static final int HEIGHT = 550;
+        public static final int WIDTH = 550;
+        public static final int GAP = 24;
+    }
+
+    public static final int TOP = MX2.TOP;
+    public static final int LEFT = MX2.LEFT;
+    public static final int HEIGHT = MX2.HEIGHT;
+    public static final int WIDTH = MX2.WIDTH;
+    public static final int GAP = MX2.GAP;
+
+    public static int IMG_HEIGHT = MX2.HEIGHT;
+    public static int IMG_WIDTH = MX2.WIDTH;
 
     static final String path = new ImageTest().getCurrFilePath();
 
     public static void main(String[] args) throws IOException {
 
         String fileName = "finddiff.png";
-        fileName = "finddiff_room.png";
+        // fileName = "finddiff_room.png";
         File file = new File(path + fileName);
         if (!file.exists()) {
             System.out.println("file not exist");
@@ -49,14 +67,9 @@ public class FindDiffHelper {
         }*/
 
         BufferedImage bufImg = ImageIO.read(file);
+        int height = bufImg.getHeight();
 
-        System.out.println(bufImg.getRGB(LEFT, TOP));
-        System.out.println(bufImg.getRGB(LEFT, TOP + HEIGHT + GAP));
-
-        // bufImg.setRGB(LEFT + 20, TOP, ImageTest.RBG_BLACK);
-        // bufImg.setRGB(LEFT + 20, TOP + HEIGHT + GAP, ImageTest.RBG_BLACK);
-
-        BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT - 5, BufferedImage.TYPE_INT_RGB);
         // BufferedImage topBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         // BufferedImage bottomBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -64,6 +77,10 @@ public class FindDiffHelper {
         for (int x = LEFT; x < LEFT + WIDTH; x++) {
             for (int y = TOP; y < TOP + HEIGHT; y++) {
                 topRgb = bufImg.getRGB(x, y);
+                // 适配MX2
+                if (y + HEIGHT + GAP >= height) {
+                    break;
+                }
                 bottomRgb = bufImg.getRGB(x, y + HEIGHT + GAP);
 
                 // topBufImg.setRGB(x - LEFT, y - TOP, topRgb);
@@ -71,7 +88,6 @@ public class FindDiffHelper {
 
                 if (topRgb != bottomRgb
                         && !colorSimilar(topRgb, bottomRgb)) {
-                    System.out.println(String.format("TOP: %d, bottom: %d", topRgb, bottomRgb));
                     bufImg.setRGB(x, y + HEIGHT + GAP, Color.BLACK.getRGB());
                     diffBufImg.setRGB(x - LEFT, y - TOP, Color.BLACK.getRGB());
                 } else {
@@ -90,37 +106,50 @@ public class FindDiffHelper {
     }
 
     public static void findDiff() {
+        String diffFileName = fileName();
+        FindDiffWindow.fileName = diffFileName;
         try {
             String fileName = "finddiff.png";
             File file = new File(path + fileName);
             if (!file.exists()) {
                 System.out.println("file not exist");
             }
-            File diffFile = new File(path + "_diff.png");
+            File diffFile = new File(path + diffFileName);
             if (!diffFile.exists()) {
                 diffFile.createNewFile();
             }
+            File oriDiffFile = new File(path + diffFileName);
+            if (!oriDiffFile.exists()) {
+                oriDiffFile.createNewFile();
+            }
 
             BufferedImage bufImg = ImageIO.read(file);
-            BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+            BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT - 5, BufferedImage.TYPE_INT_RGB);
 
+            int height = bufImg.getHeight();
             int topRgb, bottomRgb;
             for (int x = LEFT; x < LEFT + WIDTH; x++) {
                 for (int y = TOP; y < TOP + HEIGHT; y++) {
                     topRgb = bufImg.getRGB(x, y);
+                    // 适配MX2
+                    if (y + HEIGHT + GAP >= height) {
+                        continue;
+                    }
                     bottomRgb = bufImg.getRGB(x, y + HEIGHT + GAP);
 
                     if (topRgb != bottomRgb
                             && !colorSimilar(topRgb, bottomRgb)) {
-                        System.out.println(String.format("TOP: %d, bottom: %d", topRgb, bottomRgb));
+                        // bufImg.setRGB(x, y + HEIGHT + GAP, Color.BLACK.getRGB());
                         diffBufImg.setRGB(x - LEFT, y - TOP, Color.BLACK.getRGB());
                     } else {
+                        // bufImg.setRGB(x, y + HEIGHT + GAP, Color.WHITE.getRGB());
                         diffBufImg.setRGB(x - LEFT, y - TOP, Color.WHITE.getRGB());
                     }
                 }
             }
 
             ImageIO.write(diffBufImg, "png", diffFile);
+            // ImageIO.write(bufImg, "png", oriDiffFile);
             diffBufImg.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,4 +176,12 @@ public class FindDiffHelper {
         return false;
     }
 
+    public static void delOldImage(final String fileName) {
+        File file = new File(path + fileName);
+        file.deleteOnExit();
+    }
+
+    public static String fileName() {
+        return String.valueOf(System.currentTimeMillis()) + ".png";
+    }
 }

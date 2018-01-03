@@ -73,8 +73,8 @@ import java.util.Arrays;
  * Description
  */
 public class CmdUtils {
-    private static final String[] WIN_RUNTIME = { "cmd.exe", "/C" };
-    private static final String[] OS_LINUX_RUNTIME = { "/bin/bash", "-l", "-c" };
+    private static final String[] WIN_RUNTIME = {"cmd.exe", "/C"};
+    private static final String[] OS_LINUX_RUNTIME = {"/bin/bash", "-l", "-c"};
 
     private CmdUtils() {
     }
@@ -86,12 +86,12 @@ public class CmdUtils {
     }
 
     public static String runProcess(boolean isWin, String... command) {
-        System.out.print("command to run: ");
+        System.out.print("   command to run: ");
         for (String s : command) {
             System.out.print(s);
         }
         System.out.print("\n");
-        String[] allCommand = null;
+        String[] allCommand;
         try {
             if (isWin) {
                 allCommand = concat(WIN_RUNTIME, command);
@@ -108,7 +108,7 @@ public class CmdUtils {
             while ((_temp = in.readLine()) != null) {
                 line.append(_temp);
             }
-            System.out.println("result after command: " + line);
+            System.out.println("result of command: " + line);
             return line.toString();
         } catch (Exception e) {
             e.printStackTrace();

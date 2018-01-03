@@ -73,6 +73,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class FindDiffWindow extends JFrame {
     static final String gapList[] = {"0", "10", "15", "20"};
@@ -100,7 +102,7 @@ public class FindDiffWindow extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             ImageIcon icon = new ImageIcon(getFilePath());
-            g.drawImage(icon.getImage(), 0, 0, FindDiffHelper.WIDTH, FindDiffHelper.HEIGHT, this);
+            g.drawImage(icon.getImage(), 0, 0, FindDiffHelper.IMG_WIDTH, FindDiffHelper.IMG_HEIGHT, this);
         }
 
         public void addMouseClickListener() {
@@ -109,6 +111,8 @@ public class FindDiffWindow extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                     double x = e.getPoint().getX() + FindDiffHelper.LEFT;
                     double y = e.getPoint().getY() + FindDiffHelper.TOP + FindDiffHelper.HEIGHT;
+                    // double x = e.getPoint().getX();
+                    // double y = e.getPoint().getY();
 
                     System.out.println(String.format("click x: %f, y: %f", x, y));
                     AdbHelper.tap((int) x, (int) y);
@@ -163,7 +167,7 @@ public class FindDiffWindow extends JFrame {
         Dimension buttonSize = b.getPreferredSize();
         // compsToExperiment.setPreferredSize(new Dimension((int) (buttonSize.getWidth() * 2.5) + maxGap,
         //         (int) (buttonSize.getHeight() * 3.5) + maxGap * 2));
-        compsToExperiment.setPreferredSize(new Dimension(FindDiffHelper.WIDTH, FindDiffHelper.HEIGHT));
+        compsToExperiment.setPreferredSize(new Dimension(FindDiffHelper.IMG_WIDTH, FindDiffHelper.IMG_HEIGHT));
 
 
         //Add buttons to experiment with Grid Layout
@@ -172,7 +176,7 @@ public class FindDiffWindow extends JFrame {
         // compsToExperiment.add(new JButton("Button 3"));
         // compsToExperiment.add(new JButton("Long-Named Button 4"));
         // compsToExperiment.add(new JButton("5"));
-        final ImagePanel imgPanel = new ImagePanel();
+        ImagePanel imgPanel = new ImagePanel();
         compsToExperiment.add(imgPanel);
 
         //Add controls to set up horizontal and vertical gaps
@@ -201,18 +205,25 @@ public class FindDiffWindow extends JFrame {
             // adb pull /sdcard/autojump.png .
             // Runtime.getRuntime().exec("adb shell screencap -p /sdcard/finddiff.png");
             // Runtime.getRuntime().exec("adb pull /sdcard/finddiff.png .");
+
+            // 删除上一张图片
+            FindDiffHelper.delOldImage(fileName);
+
             AdbHelper.screen();
             AdbHelper.pull();
             FindDiffHelper.findDiff();
 
-            String fileName = "_diff.png";
+            // String fileName = "_diff.png";
             imgPanel.setFileName(fileName);
             imgPanel.repaint();
+            System.out.println("refresh finish.");
         });
         pane.add(compsToExperiment, BorderLayout.NORTH);
         pane.add(new JSeparator(), BorderLayout.CENTER);
         pane.add(controls, BorderLayout.SOUTH);
     }
+
+    public volatile static String fileName = "";
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -228,6 +239,37 @@ public class FindDiffWindow extends JFrame {
         // Display the window.
         frame.pack();
         frame.setVisible(true);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                FindDiffHelper.delOldImage(fileName);
+            }
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     public static void main(String[] args) {

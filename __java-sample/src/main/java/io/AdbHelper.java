@@ -60,6 +60,8 @@ package io;
 //           ░     ░ ░      ░  ░
 //                 ░
 
+import javax.rmi.CORBA.Util;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -70,23 +72,30 @@ package io;
 public class AdbHelper {
 
     private static final String PATH = new ImageTest().getCurrFilePath();
-    private static final String ADB_PATH = "D:\\__sssarm\\platform-tools\\adb";
+    private static final String ADB_PATH;
+
+    static {
+        ADB_PATH = Utils.getAdbPath();
+    }
 
     public static void main(String[] args) {
         // CmdUtils.runProcess(true, String.format("%s shell input tap %d %d", ADB_PATH, 540, 1000));
-        tap(540, 1000);
+        // tap(368, 800);
+
+        // screen();
+        // pull();
     }
 
     public static void screen() {
-        CmdUtils.runProcess(true, String.format("%s shell screencap -p /sdcard/finddiff.png", ADB_PATH));
+        CmdUtils.runProcess(Utils.isWin(), String.format("%s shell screencap -p /sdcard/finddiff.png", ADB_PATH));
     }
 
     public static void pull() {
-        CmdUtils.runProcess(true, String.format("%s pull /sdcard/finddiff.png " + PATH, ADB_PATH));
+        CmdUtils.runProcess(Utils.isWin(), String.format("%s pull /sdcard/finddiff.png " + PATH, ADB_PATH));
     }
 
     public static void tap(int x, int y) {
-        CmdUtils.runProcess(true, String.format("%s shell input tap %d %d", ADB_PATH, x, y));
+        CmdUtils.runProcess(Utils.isWin(), String.format("%s shell input tap %d %d", ADB_PATH, x, y));
     }
 
 }
