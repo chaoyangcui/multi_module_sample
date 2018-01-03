@@ -82,7 +82,7 @@ public class ImageTest {
 
     public static void main(String[] args) throws IOException {
 
-        String path = new ImageTest().getCurrFilePath();
+        String path = Utils.getCurrFilePath();
         System.out.println(path);
 
         String fileName = "finddiff.png";
@@ -154,24 +154,6 @@ public class ImageTest {
         ImageIO.write(bufferedImage, "jpg", toFile);*/
     }
 
-
-    /**
-     * 获取当前类的绝对路径
-     * @return
-     */
-    public String getCurrFilePath() {
-        URL url = getClass().getResource("");
-        String path = url.getPath();
-        String osName = System.getProperty("os.name", "");
-        path = path.replace("target/classes/", "src/main/java/");
-        if (osName.contains("Win")) {
-            if ('/' == path.charAt(0)) {
-                path = path.replaceFirst("/", "");
-            }
-        }
-        System.out.println("Path: " + path);
-        return path;
-    }
 
     private static int getImageRgb(int i) {
         // 将十进制的颜色值转为十六进制

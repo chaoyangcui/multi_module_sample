@@ -85,7 +85,7 @@ public class FindDiffWindow extends JFrame {
     // GridLayout experimentLayout = new GridLayout(0, 2);
     GridLayout experimentLayout = new GridLayout(1, 1);
 
-    private static final String PATH = new ImageTest().getCurrFilePath();
+    private static final String PATH = Utils.getCurrFilePath();
 
     public FindDiffWindow(String name) {
         super(name);
@@ -102,15 +102,15 @@ public class FindDiffWindow extends JFrame {
         public void paint(Graphics g) {
             super.paint(g);
             ImageIcon icon = new ImageIcon(getFilePath());
-            g.drawImage(icon.getImage(), 0, 0, FindDiffHelper.IMG_WIDTH, FindDiffHelper.IMG_HEIGHT, this);
+            g.drawImage(icon.getImage(), 0, 0, DiffHelper.IMG_WIDTH, DiffHelper.IMG_HEIGHT, this);
         }
 
         public void addMouseClickListener() {
             this.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    double x = e.getPoint().getX() + FindDiffHelper.LEFT;
-                    double y = e.getPoint().getY() + FindDiffHelper.TOP + FindDiffHelper.HEIGHT;
+                    double x = e.getPoint().getX() + DiffHelper.LEFT;
+                    double y = e.getPoint().getY() + DiffHelper.TOP + DiffHelper.HEIGHT;
                     // double x = e.getPoint().getX();
                     // double y = e.getPoint().getY();
 
@@ -163,43 +163,22 @@ public class FindDiffWindow extends JFrame {
         controls.setLayout(new GridLayout(1, 1));
 
         //Set up components preferred size
-        JButton b = new JButton("Just fake button");
-        Dimension buttonSize = b.getPreferredSize();
+        // JButton b = new JButton("Just fake button");
+        // Dimension buttonSize = b.getPreferredSize();
         // compsToExperiment.setPreferredSize(new Dimension((int) (buttonSize.getWidth() * 2.5) + maxGap,
         //         (int) (buttonSize.getHeight() * 3.5) + maxGap * 2));
-        compsToExperiment.setPreferredSize(new Dimension(FindDiffHelper.IMG_WIDTH, FindDiffHelper.IMG_HEIGHT));
+        compsToExperiment.setPreferredSize(new Dimension(DiffHelper.IMG_WIDTH, DiffHelper.IMG_HEIGHT));
 
 
-        //Add buttons to experiment with Grid Layout
-        // compsToExperiment.add(new JButton("Button 1"));
-        // compsToExperiment.add(new JButton("Button 2"));
-        // compsToExperiment.add(new JButton("Button 3"));
-        // compsToExperiment.add(new JButton("Long-Named Button 4"));
-        // compsToExperiment.add(new JButton("5"));
+        // Add buttons to experiment with Grid Layout
         ImagePanel imgPanel = new ImagePanel();
         compsToExperiment.add(imgPanel);
 
-        //Add controls to set up horizontal and vertical gaps
-        // controls.add(new Label("Horizontal gap:"));
-        // controls.add(new Label("Vertical gap:"));
-        // controls.add(new Label(" "));
-        // controls.add(horGapComboBox);
-        // controls.add(verGapComboBox);
+        // Add controls to set up horizontal and vertical gaps
         controls.add(refreshButton);
 
-        // Process the Apply gaps button press
+        // Process the refresh button press
         refreshButton.addActionListener(e -> {
-            /*//Get the horizontal gap value
-            String horGap = (String) horGapComboBox.getSelectedItem();
-            //Get the vertical gap value
-            String verGap = (String) verGapComboBox.getSelectedItem();
-            //Set up the horizontal gap value
-            experimentLayout.setHgap(Integer.parseInt(horGap));
-            //Set up the vertical gap value
-            experimentLayout.setVgap(Integer.parseInt(verGap));
-            //Set up the layout of the buttons
-            experimentLayout.layoutContainer(compsToExperiment);*/
-
             // android adb operation
             // adb shell screencap -p /sdcard/autojump.png
             // adb pull /sdcard/autojump.png .
@@ -207,11 +186,11 @@ public class FindDiffWindow extends JFrame {
             // Runtime.getRuntime().exec("adb pull /sdcard/finddiff.png .");
 
             // 删除上一张图片
-            FindDiffHelper.delOldImage(fileName);
+            DiffHelper.delOldImage(fileName);
 
             AdbHelper.screen();
             AdbHelper.pull();
-            FindDiffHelper.findDiff();
+            DiffHelper.findDiff();
 
             // String fileName = "_diff.png";
             imgPanel.setFileName(fileName);
@@ -233,7 +212,7 @@ public class FindDiffWindow extends JFrame {
     private static void createAndShowGUI() {
         //Create and set up the window.
         FindDiffWindow frame = new FindDiffWindow("找茬");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
         // Display the window.
@@ -242,7 +221,7 @@ public class FindDiffWindow extends JFrame {
         frame.addWindowListener(new WindowListener() {
             @Override
             public void windowClosing(WindowEvent e) {
-                FindDiffHelper.delOldImage(fileName);
+                DiffHelper.delOldImage(fileName);
             }
 
             @Override

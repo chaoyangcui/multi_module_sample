@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Eric Cui
  * Desc  : 描述信息
  */
-public class FindDiffHelper {
+public class DiffHelper {
 
     static class IP6 {
         public static final int TOP = 116;
@@ -39,7 +39,7 @@ public class FindDiffHelper {
     public static int IMG_HEIGHT = MX2.HEIGHT;
     public static int IMG_WIDTH = MX2.WIDTH;
 
-    static final String path = new ImageTest().getCurrFilePath();
+    static final String path = Utils.getCurrFilePath();
 
     public static void main(String[] args) throws IOException {
 

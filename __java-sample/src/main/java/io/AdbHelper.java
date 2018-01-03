@@ -71,7 +71,7 @@ import javax.rmi.CORBA.Util;
  */
 public class AdbHelper {
 
-    private static final String PATH = new ImageTest().getCurrFilePath();
+    private static final String PATH = Utils.getCurrFilePath();
     private static final String ADB_PATH;
 
     static {
