@@ -25,7 +25,7 @@ public class DiffHelper {
         public static final int IMG_HEIGHT = 1334;
     }
     static class MX2 {
-        public static final int TOP = 161;
+        public static final int TOP = 111;
         public static final int LEFT = 183;
         public static final int HEIGHT = 550;
         public static final int WIDTH = 550;
@@ -43,13 +43,13 @@ public class DiffHelper {
         public static final int IMG_HEIGHT = 1920;
     }
 
-    public static final int TOP = IP6.TOP;
-    public static final int LEFT = IP6.LEFT;
-    public static final int WIDTH = IP6.WIDTH;
-    public static final int HEIGHT = IP6.HEIGHT;
-    public static final int GAP = IP6.GAP;
-    public static int IMG_WIDTH = IP6.IMG_WIDTH / 2;
-    public static int IMG_HEIGHT = IP6.IMG_HEIGHT / 2;
+    public static final int TOP = MX2.TOP;
+    public static final int LEFT = MX2.LEFT;
+    public static final int WIDTH = MX2.WIDTH;
+    public static final int HEIGHT = MX2.HEIGHT;
+    public static final int GAP = MX2.GAP;
+    public static int IMG_WIDTH = MX2.IMG_WIDTH / 2;
+    public static int IMG_HEIGHT = MX2.IMG_HEIGHT / 2;
     // public static int IMG_WIDTH = MI.WIDTH;
     // public static int IMG_HEIGHT = MI.HEIGHT;
 
@@ -80,8 +80,6 @@ public class DiffHelper {
         }*/
 
         BufferedImage bufImg = ImageIO.read(file);
-        int height = bufImg.getHeight();
-
         BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         // BufferedImage topBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         // BufferedImage bottomBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -90,10 +88,6 @@ public class DiffHelper {
         for (int x = LEFT; x < LEFT + WIDTH; x++) {
             for (int y = TOP; y < TOP + HEIGHT; y++) {
                 topRgb = bufImg.getRGB(x, y);
-                // 适配MX2
-                if (y + HEIGHT + GAP >= height) {
-                    break;
-                }
                 bottomRgb = bufImg.getRGB(x, y + HEIGHT + GAP);
 
                 // topBufImg.setRGB(x - LEFT, y - TOP, topRgb);
@@ -145,15 +139,10 @@ public class DiffHelper {
             BufferedImage bufImg = ImageIO.read(file);
             BufferedImage diffBufImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-            int height = bufImg.getHeight();
             int topRgb, bottomRgb;
             for (int x = LEFT; x < LEFT + WIDTH; x++) {
                 for (int y = TOP; y < TOP + HEIGHT; y++) {
                     topRgb = bufImg.getRGB(x, y);
-                    // 适配MX2
-                    if (y + HEIGHT + GAP >= height) {
-                        continue;
-                    }
                     bottomRgb = bufImg.getRGB(x, y + HEIGHT + GAP);
 
                     if (topRgb != bottomRgb
@@ -189,9 +178,9 @@ public class DiffHelper {
         Color oriColor = Color.getColor("", oriRgb);
         Color diffColor = Color.getColor("", diffRgb);
 
-        if (Math.abs(oriColor.getBlue() - diffColor.getBlue()) < 45
-                && Math.abs(oriColor.getGreen() - diffColor.getGreen()) < 45
-                && Math.abs(oriColor.getRed() - diffColor.getRed()) < 45) {
+        if (Math.abs(oriColor.getBlue() - diffColor.getBlue()) < 35
+                && Math.abs(oriColor.getGreen() - diffColor.getGreen()) < 35
+                && Math.abs(oriColor.getRed() - diffColor.getRed()) < 35) {
             return true;
         }
 
