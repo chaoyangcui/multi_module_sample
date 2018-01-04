@@ -1,64 +1,4 @@
 package io;
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-
-
-//         ┌─┐       ┌─┐
-//      ┌──┘ ┴───────┘ ┴──┐
-//      │                 │
-//      │       ───       │
-//      │  ─┬┘       └┬─  │
-//      │                 │
-//      │       ─┴─       │
-//      │                 │
-//      └───┐         ┌───┘
-//          │         │
-//          │         │
-//          │         │
-//          │         └──────────────┐
-//          │                        │
-//          │                        ├─┐
-//          │                        ┌─┘
-//          │                        │
-//          └─┐  ┐  ┌───────┬──┐  ┌──┘
-//            │ ─┤ ─┤       │ ─┤ ─┤
-//            └──┴──┘       └──┴──┘
-//                神兽保佑
-//                代码无BUG!
-
-
-//
-//  ██████▒█    ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
-// ▓██   ▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒        ██╔══██╗██║   ██║██╔════╝
-// ▒████ ░▓██  ▒██░▒▓█    ▄ ▓███▄░        ██████╔╝██║   ██║██║  ███╗
-// ░▓█▒  ░▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄        ██╔══██╗██║   ██║██║   ██║
-// ░▒█░   ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄       ██████╔╝╚██████╔╝╚██████╔╝
-//  ▒ ░   ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒       ╚═════╝  ╚═════╝  ╚═════╝
-//  ░     ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░
-//  ░ ░    ░░░ ░ ░ ░        ░ ░░ ░
-//           ░     ░ ░      ░  ░
-//                 ░
 
 /**
  * Created by IntelliJ IDEA.
@@ -77,10 +17,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class FindDiffWindow extends JFrame {
-    static final String gapList[] = {"0", "10", "15", "20"};
-    final static int maxGap = 20;
-    JComboBox horGapComboBox;
-    JComboBox verGapComboBox;
+
     JButton refreshButton = new JButton("Refresh");
     // GridLayout experimentLayout = new GridLayout(0, 2);
     GridLayout experimentLayout = new GridLayout(1, 1);
@@ -93,65 +30,6 @@ public class FindDiffWindow extends JFrame {
     }
 
     public void initGaps() {
-        horGapComboBox = new JComboBox(gapList);
-        verGapComboBox = new JComboBox(gapList);
-    }
-
-    class ImagePanel extends JPanel {
-        private String fileName = null;
-        public void paint(Graphics g) {
-            super.paint(g);
-            ImageIcon icon = new ImageIcon(getFilePath());
-            g.drawImage(icon.getImage(), 0, 0, DiffHelper.IMG_WIDTH, DiffHelper.IMG_HEIGHT, this);
-        }
-
-        public void addMouseClickListener() {
-            this.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    double x = e.getPoint().getX() + DiffHelper.LEFT;
-                    double y = e.getPoint().getY() + DiffHelper.TOP + DiffHelper.HEIGHT;
-                    // double x = e.getPoint().getX();
-                    // double y = e.getPoint().getY();
-
-                    System.out.println(String.format("click x: %f, y: %f", x, y));
-                    AdbHelper.tap((int) x, (int) y);
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-            });
-        }
-
-        public ImagePanel() {
-            this.addMouseClickListener();
-        }
-        public ImagePanel(String fileName) {
-            this.fileName = fileName;
-            this.addMouseClickListener();
-        }
-
-        private String getFilePath() {
-            return PATH + (fileName == null ? "diff.png" : fileName);
-        }
-
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
-        }
     }
 
     public void addComponentsToPane(final Container pane) {
@@ -179,20 +57,15 @@ public class FindDiffWindow extends JFrame {
 
         // Process the refresh button press
         refreshButton.addActionListener(e -> {
-            // android adb operation
-            // adb shell screencap -p /sdcard/autojump.png
-            // adb pull /sdcard/autojump.png .
-            // Runtime.getRuntime().exec("adb shell screencap -p /sdcard/finddiff.png");
-            // Runtime.getRuntime().exec("adb pull /sdcard/finddiff.png .");
-
             // 删除上一张图片
             DiffHelper.delOldImage(fileName);
 
             AdbHelper.screen();
             AdbHelper.pull();
+            // 查找图片中的不同之处,并保存到一个新的文件中,文件名:fileName
             DiffHelper.findDiff();
 
-            // String fileName = "_diff.png";
+            // String fileName = "_ori_diff.png";
             imgPanel.setFileName(fileName);
             imgPanel.repaint();
             System.out.println("refresh finish.");
@@ -225,29 +98,17 @@ public class FindDiffWindow extends JFrame {
             }
 
             @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
+            public void windowOpened(WindowEvent e) {}
             @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
+            public void windowClosed(WindowEvent e) {}
             @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
+            public void windowIconified(WindowEvent e) {}
             @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
+            public void windowDeiconified(WindowEvent e) {}
             @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
+            public void windowActivated(WindowEvent e) {}
             @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
+            public void windowDeactivated(WindowEvent e) {}
         });
     }
 
@@ -271,6 +132,55 @@ public class FindDiffWindow extends JFrame {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+
+    class ImagePanel extends JPanel {
+        private String fileName = null;
+        public void paint(Graphics g) {
+            super.paint(g);
+            ImageIcon icon = new ImageIcon(getFilePath());
+            g.drawImage(icon.getImage(), 0, 0, DiffHelper.IMG_WIDTH, DiffHelper.IMG_HEIGHT, this);
+        }
+
+        public void addMouseClickListener() {
+            this.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // double x = e.getPoint().getX() + DiffHelper.LEFT;
+                    // double y = e.getPoint().getY() + DiffHelper.TOP + DiffHelper.HEIGHT;
+                    double x = e.getPoint().getX();
+                    double y = e.getPoint().getY();
+
+                    System.out.println(String.format("click x: %f, y: %f", x, y));
+                    AdbHelper.tap((int) x * 2, (int) y * 2);
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {}
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+                @Override
+                public void mouseExited(MouseEvent e) {}
+            });
+        }
+
+        public ImagePanel() {
+            this.addMouseClickListener();
+        }
+        public ImagePanel(String fileName) {
+            this.fileName = fileName;
+            this.addMouseClickListener();
+        }
+
+        private String getFilePath() {
+            return PATH + (fileName == null ? "finddiff.png" : fileName);
+        }
+
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
     }
 }
 

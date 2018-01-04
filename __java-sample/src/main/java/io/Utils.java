@@ -1,7 +1,5 @@
 package io;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
 import java.net.URL;
 
 /**
@@ -52,7 +50,7 @@ public class Utils {
         static String PATH;
         private static final CurrentPath CURRENT_PATH = new CurrentPath();
         private CurrentPath() {
-            url = getClass().getResource("/");
+            url = getClass().getResource("");
             PATH = url.getPath();
             System.out.println(getClass().getPackage().getName());
         }

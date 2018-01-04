@@ -1,72 +1,13 @@
 package io;
-//                       _oo0oo_
-//                      o8888888o
-//                      88" . "88
-//                      (| -_- |)
-//                      0\  =  /0
-//                    ___/`---'\___
-//                  .' \\|     |// '.
-//                 / \\|||  :  |||// \
-//                / _||||| -:- |||||- \
-//               |   | \\\  -  /// |   |
-//               | \_|  ''\---/''  |_/ |
-//               \  .-\__  '-'  ___/-. /
-//             ___'. .'  /--.--\  `. .'___
-//          ."" '<  `.___\_<|>_/___.' >' "".
-//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-//         \  \ `_.   \_ __\ /__ _/   .-` /  /
-//     =====`-.____`.___ \_____/___.-`___.-'=====
-//                       `=---='
-//
-//
-//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//               佛祖保佑         永无BUG
-
-
-//         ┌─┐       ┌─┐
-//      ┌──┘ ┴───────┘ ┴──┐
-//      │                 │
-//      │       ───       │
-//      │  ─┬┘       └┬─  │
-//      │                 │
-//      │       ─┴─       │
-//      │                 │
-//      └───┐         ┌───┘
-//          │         │
-//          │         │
-//          │         │
-//          │         └──────────────┐
-//          │                        │
-//          │                        ├─┐
-//          │                        ┌─┘
-//          │                        │
-//          └─┐  ┐  ┌───────┬──┐  ┌──┘
-//            │ ─┤ ─┤       │ ─┤ ─┤
-//            └──┴──┘       └──┴──┘
-//                神兽保佑
-//                代码无BUG!
-
-
-//
-//  ██████▒█    ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
-// ▓██   ▒ ██  ▓██▒▒██▀ ▀█   ██▄█▒        ██╔══██╗██║   ██║██╔════╝
-// ▒████ ░▓██  ▒██░▒▓█    ▄ ▓███▄░        ██████╔╝██║   ██║██║  ███╗
-// ░▓█▒  ░▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄        ██╔══██╗██║   ██║██║   ██║
-// ░▒█░   ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄       ██████╔╝╚██████╔╝╚██████╔╝
-//  ▒ ░   ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒       ╚═════╝  ╚═════╝  ╚═════╝
-//  ░     ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░
-//  ░ ░    ░░░ ░ ░ ░        ░ ░░ ░
-//           ░     ░ ░      ░  ░
-//                 ░
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -80,20 +21,41 @@ public class ImageTest {
     public static final int RBG_WHITE = new Color(255, 255, 255).getRGB();
     public static final int RBG_BLACK = new Color(0, 0, 0).getRGB();
 
-    public static void main(String[] args) throws IOException {
+    private static final String PATH = Utils.getCurrFilePath();
+    private static final Set<Integer> RGB = new HashSet<>(1 << 3);
 
-        String path = Utils.getCurrFilePath();
-        System.out.println(path);
+    public static void diffScreen() throws IOException {
+        String pass = "2.png";
+        File passFile = Paths.get(PATH + pass).toFile();
+        BufferedImage passBufImage = ImageIO.read(passFile);
+
+        int middle = passBufImage.getWidth() / 2;
+        int height = 15;
+        int rgb;
+        for (int x = middle - 20; x < middle + 20; x++) {
+            rgb = passBufImage.getRGB(x, height);
+            RGB.add(rgb);
+        }
+
+        System.out.println(RGB);
+    }
+
+    public static void main(String[] args) throws IOException {
+        diffScreen();
+    }
+
+    public static void main1(String[] args) throws IOException {
+        System.out.println(PATH);
 
         String fileName = "finddiff.png";
-        File fromFile = Paths.get(path + fileName).toFile();
+        File fromFile = Paths.get(PATH + fileName).toFile();
         if (!fromFile.exists()) {
             System.out.println("file not exist.");
         }
         String toFileName = "dest.jpg";
-        File toFile = Paths.get(path + toFileName).toFile();
+        File toFile = Paths.get(PATH + toFileName).toFile();
         String grayFileName = "gray.jpg";
-        File grayFile = Paths.get(path + grayFileName).toFile();
+        File grayFile = Paths.get(PATH + grayFileName).toFile();
         if (!grayFile.exists()) {
             grayFile.createNewFile();
         }
@@ -111,7 +73,6 @@ public class ImageTest {
                 // getRGB()返回默认的RGB颜色模型(十进制)
                 arr[i][j] = getImageRgb(bufferedImage.getRGB(i, j));//该点的灰度值
             }
-
         }
 
         // 二值化
