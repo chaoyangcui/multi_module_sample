@@ -37,4 +37,8 @@
 ## Tools
 [Tools(OS X 常用 Application)](https://blog.15cm.net/tools/)
 
+
+## 二进制反码
+[原码、反码、补码](http://higoge.github.io/2015/07/02/basic03/)
+
 @
