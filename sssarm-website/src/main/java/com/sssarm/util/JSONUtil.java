@@ -1,4 +1,4 @@
-package com.sssarm.entity;
+package com.sssarm.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,7 +20,7 @@ public final class JSONUtil {
     }
 
     /**
-     * 设置日期格式化,默认:yyyy-MM-dd HH:mm:ss
+     * 设置日期格式化,默认:<code>yyyy-MM-dd HH:mm:ss</code>
      * @param fmt 格式化参数字符串, e.g., yyyy-MM-dd HH:mm:ss
      */
     public static void setDateFormat(final String fmt) {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.sssarm.entity.JSONUtil.OBJECT_MAPPER;
+import static com.sssarm.util.JSONUtil.OBJECT_MAPPER;
 
 /**
  *

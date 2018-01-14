@@ -33,7 +33,7 @@ public class JPEGController {
             graphics.setColor(c);
             graphics.fillRect(0, 0, 68, 22);
             // 验证码字符集合
-            char[] ch = getCharacters(CharType.EN);
+            char[] ch = getCharacters(LanguageType.EN);
             Random r = new Random();
             int len = ch.length;
             int index;
@@ -60,9 +60,9 @@ public class JPEGController {
      * 获取字符集
      * @return char[]
      */
-    private char[] getCharacters(CharType charType) {
+    private char[] getCharacters(LanguageType languageType) {
         char[] ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-        switch (charType) {
+        switch (languageType) {
             case ZH_CN:
                 ch = "江畔何人初见月江月何年初照人".toCharArray();
                 break;
@@ -80,7 +80,7 @@ public class JPEGController {
     /**
      * 字符类型:英文/中文
      */
-    enum CharType {
+    enum LanguageType {
         EN, ZH_CN
     }
 
