@@ -7,7 +7,7 @@ package binary;
  * @date 2018/1/10 18:03
  * Description
  */
-public class RadixTest {
+public class MathTest {
 
     public static void main(String[] args) {
         System.out.println(Math.floor(-1));
