@@ -1,8 +1,10 @@
 package __java8;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +13,7 @@ import java.util.TreeMap;
  * Date    2017/9/28 18:16
  * Desc    Setting | Editor | File and Code Templates
  */
-public class Example {
+public class StreamExample {
 
     public static void main(String[] args) {
         String[] openids = {
@@ -31,24 +33,25 @@ public class Example {
                 "ofLyRjhlkvRTgX9_u3u8pYGfAB2s","ofLyRjtJgFHrabsYzrOANnYmqRZ8","ofLyRjpcdvP5_LgQLAblNiitiW9M","ofLyRjgxax37QmEablDe511m4goY","ofLyRjgNuNJVX_urzabHpTtinO5s"
         };
 
-        Map<String, Integer> count = new HashMap<>();
-        for (String openid : openids) {
+        final Map<String, Integer> count = new HashMap<>();
+        Stream.of(openids).forEach((e) -> {
             Integer cnt;
-            count.put(openid, (cnt = count.get(openid)) != null ? cnt + 1 : 1);
-        }
+            count.put(e, (cnt = count.get(e)) != null ? cnt + 1 : 1);
+        });
 
-        TreeMap<String, String> treeMap = new TreeMap<>();
-        treeMap.put("c", "ccccc");
-        treeMap.put("a", "aaaaa");
-        treeMap.put("b", "bbbbb");
-        treeMap.put("d", "ddddd");
-        for (String key : treeMap.keySet()) {
-            System.out.println(key);
-        }
+        Stream<String> stream = Stream.of(count.keySet().toArray(new String[0]));
+        List<String> keys =
+                stream.filter((key) -> count.get(key) > 1)
+                        .collect(Collectors.toList());
+        System.out.println(keys);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("Eric");
-        System.out.println(builder.toString().contains("Eric"));
+        List<String> list =
+                Stream.of(count.entrySet().toArray(new Map.Entry[0]))
+                        .filter((e) -> (Integer) e.getValue() > 1)
+                        .map((e) -> (String) e.getKey())
+                        .collect(Collectors.toList());
+        System.out.println(list);
+
     }
 
 }

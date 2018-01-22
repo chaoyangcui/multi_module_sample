@@ -38,7 +38,7 @@ public class NonAtomicAssignmentDemo implements Runnable {
         // 不进行实际输出的OutputStream
         final DummyOutputStream dos = new DummyOutputStream();
 
-        try (PrintStream dummyPrintSteam = new PrintStream(dos);) {
+        try (PrintStream dummyPrintSteam = new PrintStream(dos)) {
             // 共享变量value的快照（即瞬间值）
             long snapshot;
             while (0 == (snapshot = value) || -1 == snapshot) {
