@@ -1,5 +1,5 @@
 import com.google.common.base.Throwables;
-import demo.JSONUtil;
+import json.JSONUtil;
 import entity.Company;
 
 import javax.validation.ConstraintViolation;
