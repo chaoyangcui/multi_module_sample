@@ -12,8 +12,7 @@ import java.security.PublicKey;
  * Created by IntelliJ IDEA.
  *
  * @author Eric
- * @date 2018/1/29 16:18
- * Description
+ * @date 2018/1/29 16:18 Description
  */
 public class KeyTest {
     private static final String ALGORITHM = "RSA";
@@ -31,8 +30,17 @@ public class KeyTest {
             System.out.println(publicKey);
             System.out.println(Base64Util.encode(publicKey.getEncoded()));
 
-            System.out.println("Public java.security: Algorithm: " + publicKey.getAlgorithm() + "Format: " + publicKey.getFormat());
-            System.out.println("Private java.security: Algorithm: " + privateKey.getAlgorithm() + "Format: " + privateKey.getFormat() + "\n");
+            System.out.println(
+                    "Public java.security: Algorithm: "
+                            + publicKey.getAlgorithm()
+                            + "Format: "
+                            + publicKey.getFormat());
+            System.out.println(
+                    "Private java.security: Algorithm: "
+                            + privateKey.getAlgorithm()
+                            + "Format: "
+                            + privateKey.getFormat()
+                            + "\n");
 
             PemObject pemObject = new PemObject("desc", publicKey.getEncoded());
             System.out.println(pemObject);
