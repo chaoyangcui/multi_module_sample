@@ -1,6 +1,12 @@
-package com.sssarm;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+import entity.Company;
+import json.JSONUtil;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Author Eric
@@ -11,7 +17,7 @@ public class LambdaTest {
 
     @org.junit.Test
     public void test() throws JsonProcessingException {
-        /*List<Company> list = new ArrayList<>();
+        List<Company> list = new ArrayList<>();
         list.add(Company.builder().address("china").build());
         list.sort(new Comparator<Company>() {
             @Override
@@ -30,7 +36,7 @@ public class LambdaTest {
                 .filter(company -> company.getAddress().equalsIgnoreCase("china"))
                 .collect(Collectors.toMap(Company::getAddress, temp -> temp));
 
-        System.out.println(JSONUtil.OBJECT_MAPPER.writeValueAsString(map));*/
+        System.out.println(JSONUtil.OBJECT_MAPPER.writeValueAsString(map));
     }
 
 }
