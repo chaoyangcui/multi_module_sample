@@ -1,13 +1,10 @@
 package jvm;
 
-import bytecode.Singleton;
-
 /**
  * Created by IntelliJ IDEA.
  *
  * @author Eric
  * @since 2018/3/1 15:07
- * Description
  */
 public class ClassInitFlow {
 
@@ -21,6 +18,7 @@ public class ClassInitFlow {
         System.out.println("final field.");
         return "";
     }
+
     public static String getStatic() {
         System.out.println("static field.");
         return "";
@@ -37,13 +35,14 @@ public class ClassInitFlow {
         counter1++;
         counter2++;
     }
+
     public static ClassInitFlow getInstance() {
         return new ClassInitFlow();
     }
 
     public static void main(String[] args) {
         ClassInitFlow instance = ClassInitFlow.getInstance();
-        System.out.println("counter1 = " + Singleton.counter1 + ", counter2 = " + Singleton.counter2);
+        System.out.println(
+                "counter1 = " + ClassInitFlow.counter1 + ", counter2 = " + ClassInitFlow.counter2);
     }
-
 }
