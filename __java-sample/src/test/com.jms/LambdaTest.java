@@ -1,8 +1,6 @@
-package com.sssarm;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sssarm.entity.Company;
-import com.sssarm.util.JSONUtil;
+import entity.Company;
+import json.JSONUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
