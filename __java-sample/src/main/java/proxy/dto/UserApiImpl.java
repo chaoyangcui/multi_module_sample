@@ -3,7 +3,7 @@ package proxy.dto;
 /**
  * <p>Created by Intellij IDEA.
  *
- * @author cuiguiyang
+ * @author Hazer
  * @since 2021/1/18 上午11:23
  */
 public class UserApiImpl implements UserApi {
